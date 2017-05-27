@@ -1,0 +1,17 @@
+li.logout a{
+  background: #ca2129 ;
+  margin-bottom: -10px !important ;
+  color: #ffffff !important;
+  padding-right: 22px;
+  padding-left: 22px;
+}
+
+
+.navbar {
+  overflow: hidden;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+
+

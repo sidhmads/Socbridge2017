@@ -1,8 +1,6 @@
-
-
-import {User} from "./models/User.model";
-import {Module} from "./models/Module.model";
-import {Course} from "./models/Course.model";
+import {User} from './models/User.model';
+import {Module} from './models/Module.model';
+import {Course} from './models/Course.model';
 
 export class UsersService {
   private byModule: Module[] = [];
@@ -10,9 +8,8 @@ export class UsersService {
   private byCourse: Course[] = [];
   private Users: User[] = [];
 
-  private courseAdded = false;
-  private facultyAdded = false;
-  private yearAdded = false;
+  private moduleAdded = false;
+  private coursAdded = false;
 
   getUsers() {
     return this.Users;
@@ -21,43 +18,32 @@ export class UsersService {
   addUser(user: User) {
     this.Users.push(user);
     this.temp = [];
-    for (const x of user.courses) {
-      for (const i of this.byCourse) {
+    for (const x of user.modules) {
+      for (const i of this.byModule) {
         if (x === i.moduleName) {
           i.users.push(user);
-          this.courseAdded = true;
+          this.moduleAdded = true;
           break;
         }
       }
-      if (!this.courseAdded) {
-        this.temp.push(new CourseModel(x, [user]));
+      if (!this.moduleAdded) {
+        this.temp.push(new Module(x, [user]));
       }
-      this.courseAdded = false;
+      this.moduleAdded = false;
     }
-    this.byCourse.push(...this.temp);
-    // for byFaculty && byYear
-    for (const x of this.byFaculty) {
-      if (user.faculty === x.faculty) {
-        x.users.push(user);
-        this.facultyAdded = true;
+    this.byModule.push(...this.temp);
+    // for byCourse
+    for (const x of this.byCourse) {
+      if (user.course === x.name) {
+        x.addUser(user);
+        this.coursAdded = true;
         break;
       }
-      for (const yr of x.byYear) {
-        if (user.yearOfStudy === yr.year) {
-          yr.users.push(user);
-          this.yearAdded = true;
-          break;
-        }
-      }
-      if (!this.yearAdded) {
-        x.byYear.push(new YearModel(user.yearOfStudy, [user]));
-      }
     }
-    if (!this.facultyAdded) {
-      this.byFaculty.push(new FacultyModel(user.faculty, [user]));
+    if (!this.coursAdded) {
+      this.byCourse.push(new Course(user.course, [user]));
     }
-    this.facultyAdded = false;
-    this.yearAdded = false;
+    this.coursAdded = false;
   }
   // to get the user object
   getUserByName(firstName: string, lastName: string) {
@@ -68,29 +54,28 @@ export class UsersService {
     }
     return null;
   }
-  // to get the courses objects the user takes
-  getUserCourses(user: User) {
-    const courseTaken: CourseModel[] = [];
-    for (const course of user.courses) {
-      for (const obj of this.byCourse) {
-        if (course === obj.courseName) {
-          courseTaken.push(obj);
+  // to get the module objects the user takes
+  getUserModules(user: User) {
+    const moduleTaken: Module[] = [];
+    for (const module of user.modules) {
+      for (const obj of this.byModule) {
+        if (module === obj.moduleName) {
+          moduleTaken.push(obj);
         }
       }
     }
-    return courseTaken;
+    return moduleTaken;
   }
-  getFaculty(user: User) {
-    for (const fac of this.byFaculty) {
-      if (fac.faculty === user.faculty) {
+  getCourse(user: User) {
+    for (const fac of this.byCourse) {
+      if (fac.name === user.course) {
         return fac;
       }
     }
   }
-
   getModuleByName(module: string) {
-    for (let mod of this.byCourse) {
-      if (mod.courseName === module) {
+    for (const mod of this.byModule) {
+      if (mod.moduleName === module) {
         return mod;
       }
     }
