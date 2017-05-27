@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../Users.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,6 +28,12 @@ export class LoginComponent implements OnInit {
 
   authenticate(nameInput: HTMLInputElement, pwInput: HTMLInputElement){
     this.success = this.usersService.verify(nameInput.value, pwInput.value);
+    if(this.success){
+      alert('Login success');
+    }
+    else{
+      alert('Login Fail');
+    }
   }
 
 }

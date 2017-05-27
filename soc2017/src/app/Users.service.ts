@@ -87,6 +87,14 @@ export class UsersService {
   }
 
   verify(inputName: string, inputpw: string){
-    return true;
+    if(inputName === 'philemon' && inputpw === 'tan'){
+      return true;
+    }
+    else if (inputName === 'siddharth' && inputpw === 'madhavan') {
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

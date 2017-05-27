@@ -23,6 +23,7 @@ import { ConnectFriendsComponent } from './home/course/course-connect/connect-fr
 import { DropdownDirective } from './dropdown.directive';
 import {UsersService} from './Users.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
