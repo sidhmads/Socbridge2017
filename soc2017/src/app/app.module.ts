@@ -20,6 +20,7 @@ import { ProgressChartComponent } from './home/course/progress-chart/progress-ch
 import { ConnectDiscoverComponent } from './home/course/course-connect/connect-discover/connect-discover.component';
 import { ConnectRequestComponent } from './home/course/course-connect/connect-request/connect-request.component';
 import { ConnectFriendsComponent } from './home/course/course-connect/connect-friends/connect-friends.component';
+import { DropdownDirective } from './dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ConnectFriendsComponent } from './home/course/course-connect/connect-fr
     ProgressChartComponent,
     ConnectDiscoverComponent,
     ConnectRequestComponent,
-    ConnectFriendsComponent
+    ConnectFriendsComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,

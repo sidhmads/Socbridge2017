@@ -1,3 +1,58 @@
-<p>
-  login works!
-</p>
+<div class="jumbotron" style="text-align: center">
+  <h1 class="display-3">NUS Connect</h1>
+  <p class="lead">This is a platform for NUS Students to Connect and discuss!</p>
+  <hr class="my-2">
+  <p>Please Login to Continue</p>
+  <hr>
+
+  <div class="row lead">
+    <!--<div class="col-lg-2 col-lg-offset-4">-->
+      <!--<div class="input-group">-->
+        <!--<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon2">-->
+      <!--</div>-->
+      <!--<div class="input-group">-->
+        <!--<input type="text" class="form-control" placeholder="Password" aria-describedby="basic-addon2">-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <div class="col-lg-4 col-lg-offset-4">
+      <button class="btn btn-success btn-block" (click) = loginClicked()>Login <span class="caret"></span></button>
+      <br>
+        <div *ngIf="loginMenu">
+          <div class="col-xs-8">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Username"
+              aria-describedby="basic-addon2"
+              #usernameInput>
+          </div>
+          <div >
+            <button class="btn btn-primary" (click)="authenticate(usernameInput,passwordInput)">Enter.</button>
+          </div>
+
+        </div>
+        <div *ngIf="loginMenu">
+          <div class="col-xs-8">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Password"
+              aria-describedby="basic-addon2"
+              #passwordInput>
+          </div>
+          <div >
+            <button class="btn btn-danger">Reset</button>
+          </div>
+        </div>
+      <button class="btn btn-primary btn-block" (click)= signUpClicked() *ngIf="!loginMenu">Sign Up <span class="caret"></span></button>
+    </div>
+  </div>
+  <!--<div class=" row lead">-->
+    <!--<div class="col-lg-4 col-lg-offset-4 text-center">-->
+
+      <!--<button class="btn btn-success btn-block" (click) = login()>Login</button>-->
+      <!--<button class="btn btn-primary btn-block" (click)= signUp()>Sign Up</button>-->
+    <!--</div>-->
+  <!--</div>-->
+</div>

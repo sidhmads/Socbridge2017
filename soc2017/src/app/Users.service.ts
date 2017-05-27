@@ -6,10 +6,14 @@ export class UsersService {
   private byModule: Module[] = [];
   private temp: Module[] = [];
   private byCourse: Course[] = [];
-  private Users: User[] = [];
-
+  private Users: User[] = [
+    new User('philemon','tan','test','CEG','2',[],[]),
+    new User('siddarth','madhavan','test','CEG','2',[],[])
+  ];
   private moduleAdded = false;
   private coursAdded = false;
+
+
 
   getUsers() {
     return this.Users;
@@ -80,5 +84,9 @@ export class UsersService {
       }
     }
     return null;
+  }
+
+  verify(inputName: string, inputpw: string){
+    return true;
   }
 }
