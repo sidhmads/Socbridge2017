@@ -21,6 +21,7 @@ import { ConnectDiscoverComponent } from './home/course/course-connect/connect-d
 import { ConnectRequestComponent } from './home/course/course-connect/connect-request/connect-request.component';
 import { ConnectFriendsComponent } from './home/course/course-connect/connect-friends/connect-friends.component';
 import { DropdownDirective } from './dropdown.directive';
+import {UsersService} from "./Users.service";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { DropdownDirective } from './dropdown.directive';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

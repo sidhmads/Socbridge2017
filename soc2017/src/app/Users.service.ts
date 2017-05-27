@@ -7,8 +7,8 @@ export class UsersService {
   private temp: Module[] = [];
   private byCourse: Course[] = [];
   private Users: User[] = [
-    new User('philemon','tan','test','CEG','2',[],[]),
-    new User('siddarth','madhavan','test','CEG','2',[],[])
+    new User('philemon','tan','test','CEG',2,[],[]),
+    new User('siddarth','madhavan','test','CEG',2,[],[])
   ];
   private moduleAdded = false;
   private coursAdded = false;
@@ -87,6 +87,14 @@ export class UsersService {
   }
 
   verify(inputName: string, inputpw: string){
-    return true;
+    if(inputName === 'philemon' && inputpw === 'tan'){
+      return true;
+    }
+    else if (inputName === 'siddharth' && inputpw === 'madhavan') {
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }
