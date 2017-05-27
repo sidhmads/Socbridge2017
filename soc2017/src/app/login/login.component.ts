@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../Users.service';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,29 +13,28 @@ export class LoginComponent implements OnInit {
   signupMenu: boolean;
   success: boolean;
 
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.loginMenu = false;
     this.signupMenu = false;
+    this.success = false;
   }
 
-  loginClicked(){
+  loginClicked() {
     this.loginMenu = !this.loginMenu;
   }
 
-  signUpClicked(){
+  signUpClicked() {
     this.signupMenu = !this.signupMenu;
   }
 
-  authenticate(nameInput: HTMLInputElement, pwInput: HTMLInputElement){
-    this.success = this.usersService.verify(nameInput.value, pwInput.value);
-    if(this.success){
-      alert('Login success');
-    }
-    else{
-      alert('Login Fail');
+  authenticate( nameInput: HTMLInputElement, pwInput: HTMLInputElement ){
+    if( this.usersService.verify('philemon', 'tan') ){
+      // this.router.navigate(['/home','philemon','tan']);
+      this.router.navigate(['/home', 'philemon', 'tan']);
     }
   }
-
 }

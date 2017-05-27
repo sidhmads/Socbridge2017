@@ -21,7 +21,13 @@ import { ConnectDiscoverComponent } from './home/course/course-connect/connect-d
 import { ConnectRequestComponent } from './home/course/course-connect/connect-request/connect-request.component';
 import { ConnectFriendsComponent } from './home/course/course-connect/connect-friends/connect-friends.component';
 import { DropdownDirective } from './dropdown.directive';
-import {UsersService} from './Users.service';
+import { UsersService } from './Users.service';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'home/:firstName/:lastName' , component: HomeComponent}
+]
 
 
 @NgModule({
@@ -48,7 +54,8 @@ import {UsersService} from './Users.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]
