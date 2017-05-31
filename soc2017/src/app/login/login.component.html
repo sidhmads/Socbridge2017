@@ -6,15 +6,6 @@
   <hr>
 
   <div class="row lead">
-    <!--<div class="col-lg-2 col-lg-offset-4">-->
-      <!--<div class="input-group">-->
-        <!--<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon2">-->
-      <!--</div>-->
-      <!--<div class="input-group">-->
-        <!--<input type="text" class="form-control" placeholder="Password" aria-describedby="basic-addon2">-->
-      <!--</div>-->
-    <!--</div>-->
-
     <div class="col-lg-4 col-lg-offset-4">
       <button class="btn btn-success btn-block" (click) = loginClicked()>Login <span class="caret"></span></button>
       <br>
@@ -24,10 +15,10 @@
               type="text"
               class="form-control"
               placeholder="Username"
-              #usernameInput>
+              [(ngModel)] = "inputUsername">
           </div>
           <div >
-            <button class="btn btn-primary" (click)="authenticate(usernameInput,passwordInput)">Enter.</button>
+            <button class="btn btn-primary" (click)="authenticate()">Enter.</button>
           </div>
 
         </div>
@@ -37,7 +28,7 @@
               type="password"
               class="form-control"
               placeholder="Password"
-              #passwordInput>
+              [(ngModel)] = "inputPassword">
           </div>
           <div >
             <button class="btn btn-danger">Reset</button>
@@ -46,11 +37,9 @@
       <button class="btn btn-primary btn-block" (click)= signUpClicked() *ngIf="!loginMenu">Sign Up <span class="caret"></span></button>
     </div>
   </div>
-  <!--<div class=" row lead">-->
-    <!--<div class="col-lg-4 col-lg-offset-4 text-center">-->
-
-      <!--<button class="btn btn-success btn-block" (click) = login()>Login</button>-->
-      <!--<button class="btn btn-primary btn-block" (click)= signUp()>Sign Up</button>-->
-    <!--</div>-->
-  <!--</div>-->
+  <div class="alert alert-danger" role="alert" *ngIf="loginFailed">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    Login Failed. Please check your username and password.
+  </div>
 </div>

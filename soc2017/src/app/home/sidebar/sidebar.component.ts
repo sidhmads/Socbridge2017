@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/User.model';
+import { ActivatedRoute, Params } from '@angular/router';
+import { UsersService } from '../../Users.service';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -6,10 +10,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  courses = ['CS1010', 'CS1020', 'CS1231', 'MA1505', 'MA1506']
-  constructor() { }
+  currentUser: User = new User('test','test','test','test',5,['test','test2'],[]);
+
+  constructor(private route: ActivatedRoute, private userService: UsersService) {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.currentUser = this.userService.getUserByName(params['firstName']);
+        }
+      );
+  }
 
   ngOnInit() {
+
   }
 
 }

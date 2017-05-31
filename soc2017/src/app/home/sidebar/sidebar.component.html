@@ -1,5 +1,5 @@
-<nav class="navbar navbar-inverse sidebar" role="navigation">
-  <div class="container-fluid">
+<nav class="navbar navbar-inverse sidebar setHeight" >
+  <div class="container-fluid" >
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
@@ -10,9 +10,39 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a>Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-        <li class="dropdown" appDropdown  *ngFor="let x of courses">
-          <a class="dropdown-toggle" data-toggle="dropdown">{{x}}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+        <li>
+          <div class="row">
+            <div class="col-xs-12">
+              <!--<img class="profilePic" src="{{ currentUser.imagePath }}" alt="profile pic">-->
+
+              <!--sidebar profile-->
+              <div class="profile-userpic">
+                <img src="{{ currentUser.imagePath }}" class="img-responsive" alt="">
+              </div>
+              <div class="profile-usertitle">
+                <div class="profile-usertitle-name">
+                  {{currentUser.firstName + ' ' + currentUser.lastName}}
+                </div>
+                <div class="profile-usertitle-job">
+                  {{currentUser.course}} <br> {{'Year ' + currentUser.yearOfStudy}}
+                </div>
+              </div>
+              <!--sidebar profile-->
+            </div>
+          </div>
+        </li>
+
+        <!--previous sample-->
+        <!--<li class="active">-->
+          <!--<a>CEG<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home">-->
+          <!--</span>-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li ><a>CEG<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>-->
+
+        <!--course button-->
+        <li class="dropdown" appDropdown >
+          <a class="dropdown-toggle" data-toggle="dropdown">{{ currentUser.course }}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
           <ul class="dropdown-menu forAnimate" role="menu">
             <li><a>Description</a></li>
             <li><a>Wall</a></li>
@@ -20,10 +50,18 @@
             <li><a>Chat Box</a></li>
           </ul>
         </li>
-        <li ><a href="#">{{user.faculty}}<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
+
+        <li class="dropdown" appDropdown  *ngFor="let module of currentUser.modules">
+          <a class="dropdown-toggle" data-toggle="dropdown">{{ module }}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+          <ul class="dropdown-menu forAnimate" role="menu">
+            <li><a>Description</a></li>
+            <li><a>Wall</a></li>
+            <li><a>Current Module Mates</a></li>
+            <li><a>Chat Box</a></li>
+          </ul>
+        </li>
+
       </ul>
     </div>
   </div>
 </nav>
-<br>
-<br>

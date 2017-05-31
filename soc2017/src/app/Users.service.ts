@@ -7,13 +7,40 @@ export class UsersService {
   private temp: Module[] = [];
   private byCourse: Course[] = [];
   private Users: User[] = [
-    new User('philemon','tan','test','CEG',2,[],[]),
-    new User('siddarth','madhavan','test','CEG',2,[],[])
+    new User('philemon', 'tan', 'http://imgur.com/u4ZgiJN.png', 'Computer Engineering', 2, ['CS1010', 'CS1020', 'CS121', 'MA1505', 'MA1506'], []),
+    new User('siddharth', 'madhavan', 'http://imgur.com/eA8qWn8.png', 'Computer Engineering', 2, ['CS1010', 'CS1020', 'CS1231', 'MA1505', 'MA15'], [])
   ];
   private moduleAdded = false;
-  private coursAdded = false;
+  private courseAdded;
 
 
+  verify(inputName: string, inputpw: string){
+    if(inputName === 'philemon' && inputpw === 'tan'){
+      return true;
+    }
+    else if (inputName === 'siddharth' && inputpw === 'madhavan') {
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  // to get the user object
+  getUserByName(firstName: string) {
+    for (const i of this.Users) {
+      if (i.firstName == firstName) {
+        return i;
+      }
+    }
+  }
+
+
+
+
+  getModules(user:string){
+    return
+  }
 
   getUsers() {
     return this.Users;
@@ -40,24 +67,16 @@ export class UsersService {
     for (const x of this.byCourse) {
       if (user.course === x.name) {
         x.addUser(user);
-        this.coursAdded = true;
+        this.courseAdded = true;
         break;
       }
     }
-    if (!this.coursAdded) {
+    if (!this.courseAdded) {
       this.byCourse.push(new Course(user.course, [user]));
     }
-    this.coursAdded = false;
+    this.courseAdded = false;
   }
-  // to get the user object
-  getUserByName(firstName: string, lastName: string) {
-    for (const i of this.Users) {
-      if (i.firstName === firstName && i.lastName === lastName ) {
-        return i;
-      }
-    }
-    return null;
-  }
+
   // to get the module objects the user takes
   getUserModules(user: User) {
     const moduleTaken: Module[] = [];
@@ -86,15 +105,4 @@ export class UsersService {
     return null;
   }
 
-  verify(inputName: string, inputpw: string){
-    if(inputName === 'philemon' && inputpw === 'tan'){
-      return true;
-    }
-    else if (inputName === 'siddharth' && inputpw === 'madhavan') {
-      return true;
-    }
-    else{
-      return false;
-    }
-  }
 }

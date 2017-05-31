@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -25,8 +24,10 @@ import { UsersService } from './Users.service';
 import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'home/:firstName/:lastName' , component: HomeComponent}
+  { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: 'home/:firstName', component: HomeComponent, children: [
+    {path: 'course', component: CourseComponent }
+  ]}
 ]
 
 
