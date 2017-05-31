@@ -7,8 +7,20 @@ export class UsersService {
   private temp: Module[] = [];
   private byCourse: Course[] = [];
   private Users: User[] = [
-    new User('philemon', 'tan', 'http://imgur.com/u4ZgiJN.png', 'Computer Engineering', 2, ['CS1010', 'CS1020', 'CS121', 'MA1505', 'MA1506'], []),
-    new User('siddharth', 'madhavan', 'http://imgur.com/eA8qWn8.png', 'Computer Engineering', 2, ['CS1010', 'CS1020', 'CS1231', 'MA1505', 'MA15'], [])
+    new User('philemon',
+      'tan',
+      'http://imgur.com/u4ZgiJN.png',
+      'Computer Engineering',
+      2,
+      ['CS1010', 'CS1020', 'CS1231', 'MA1505', 'MA1506'],
+      []),
+    new User('siddharth',
+      'madhavan',
+      'http://imgur.com/eA8qWn8.png',
+      'Computer Engineering',
+      2,
+      ['CS1010', 'CS1020', 'CS1231', 'MA1505', 'MA1506'],
+      [])
   ];
   private moduleAdded = false;
   private courseAdded;

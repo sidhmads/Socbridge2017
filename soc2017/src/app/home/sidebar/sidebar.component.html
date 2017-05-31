@@ -41,8 +41,8 @@
         <!--<li ><a>CEG<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>-->
 
         <!--course button-->
-        <li class="dropdown" appDropdown >
-          <a class="dropdown-toggle" data-toggle="dropdown">{{ currentUser.course }}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+        <li routerLinkActive="active" class="dropdown" appDropdown >
+          <a class="dropdown-toggle" data-toggle="dropdown" routerLink="/home/{{currentUser.firstName}}/course">{{ currentUser.course }}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
           <ul class="dropdown-menu forAnimate" role="menu">
             <li><a>Description</a></li>
             <li><a>Wall</a></li>
@@ -51,8 +51,8 @@
           </ul>
         </li>
 
-        <li class="dropdown" appDropdown  *ngFor="let module of currentUser.modules">
-          <a class="dropdown-toggle" data-toggle="dropdown">{{ module }}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+        <li routerLinkActive="active" class="dropdown" appDropdown  *ngFor="let module of currentUser.modules">
+          <a routerLink="/home/{{currentUser.firstName}}/{{module}}" class="dropdown-toggle" data-toggle="dropdown">{{ module }}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
           <ul class="dropdown-menu forAnimate" role="menu">
             <li><a>Description</a></li>
             <li><a>Wall</a></li>

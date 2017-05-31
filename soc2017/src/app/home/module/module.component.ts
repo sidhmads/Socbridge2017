@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+
 
 @Component({
   selector: 'app-module',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModuleComponent implements OnInit {
 
-  constructor() { }
+  currentModuleName: string;
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.currentModuleName = params['module'];
+        }
+      );
   }
 
 }

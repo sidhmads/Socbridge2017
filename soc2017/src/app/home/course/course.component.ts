@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {User} from "../../models/User.model";
+import {Component, Injector, OnInit} from '@angular/core';
+import { ActivatedRoute, Params} from '@angular/router';
+import { User } from '../../models/User.model';
+import { UsersService } from '../../Users.service';
 
 
 @Component({
@@ -9,11 +10,15 @@ import {User} from "../../models/User.model";
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
-  currentUser: User;
-  constructor(private route: ActivatedRoute, private router: Router ) { }
+  currentUser: User = new User('test', 'test', 'test', 'test', 5, ['test', 'test2'], []);
 
-  ngOnInit() {
-
+  constructor(private route: ActivatedRoute, private userService: UsersService) {
+    this.route.parent.params
+      .subscribe(
+        (params: Params) => {
+          this.currentUser = this.userService.getUserByName(params['firstName']);
+        }
+      );
   }
-
+  ngOnInit() {}
 }
