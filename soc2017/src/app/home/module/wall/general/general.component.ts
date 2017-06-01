@@ -11,6 +11,11 @@ import {ActivatedRoute} from '@angular/router';
 export class GeneralComponent implements OnInit {
 
   newPost = false;
+  title = '';
+  editorContent = '';
+  editorOptions = {
+    placeholder: 'insert content...'
+    };
 
 
   Posts: WallModel[] = [
@@ -50,6 +55,12 @@ export class GeneralComponent implements OnInit {
 
   onPressed() {
     this.newPost = true;
+  }
+  clicked() {
+    this.newPost = false;
+    this.Posts.push(new WallModel(this.title, this.editorContent, this.userService.getUserByName('siddharth')));
+    this.editorContent = '';
+    this.title = '';
   }
 
 }

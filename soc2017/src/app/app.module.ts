@@ -22,6 +22,7 @@ import { ConnectFriendsComponent } from './home/course/course-connect/connect-fr
 import { DropdownDirective } from './dropdown.directive';
 import { UsersService } from './Users.service';
 import { RouterModule, Routes } from '@angular/router';
+import { QuillEditorModule } from 'ngx-quill-editor';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -58,6 +59,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    QuillEditorModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [UsersService],
