@@ -10,7 +10,7 @@ import { UsersService } from '../../Users.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  currentUser: User = new User('test','test','test','test',5,['test','test2'],[]);
+  currentUser: User = new User('test', 'test', 'test', 'test', 5, ['test', 'test2'], []);
 
   constructor(private route: ActivatedRoute, private userService: UsersService) {
     this.route.params

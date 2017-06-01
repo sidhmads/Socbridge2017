@@ -1,0 +1,48 @@
+.btn-primary {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  margin: 50px 0 0 0;
+
+}
+a{
+  text-decoration: none;
+  color:#EF7C00;
+}
+
+a:hover{
+  color:#003D7C ;
+}
+
+#container{
+  width: 80%;
+  margin: 0 auto;
+  overflow: auto;
+  clear: both;
+}
+
+#content{
+  width: 70%;
+  float: left;
+  overflow: auto;
+}
+
+#content article{
+  border-radius: 5px;
+  background: #ffffff;
+  overflow: auto;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border:1px #003D7C solid;
+}
+
+#content article:hover {
+  border:5px black solid;
+}
+
+#content article span{
+  font-style: italic;
+  color: black;
+}
+
+

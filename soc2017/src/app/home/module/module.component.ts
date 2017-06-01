@@ -13,7 +13,7 @@ export class ModuleComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params
+    this.route.parent.params
       .subscribe(
         (params: Params) => {
           this.currentModuleName = params['module'];

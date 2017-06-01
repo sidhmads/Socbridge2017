@@ -27,13 +27,11 @@ export class UsersService {
 
 
   verify(inputName: string, inputpw: string){
-    if(inputName === 'philemon' && inputpw === 'tan'){
+    if (inputName === 'philemon' && inputpw === 'tan'){
       return true;
-    }
-    else if (inputName === 'siddharth' && inputpw === 'madhavan') {
+    } else if (inputName === 'siddharth' && inputpw === 'madhavan') {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
@@ -41,7 +39,7 @@ export class UsersService {
   // to get the user object
   getUserByName(firstName: string) {
     for (const i of this.Users) {
-      if (i.firstName == firstName) {
+      if (i.firstName === firstName) {
         return i;
       }
     }

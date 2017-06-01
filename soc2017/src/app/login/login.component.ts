@@ -12,9 +12,9 @@ export class LoginComponent implements OnInit {
   loginMenu: boolean;
   signupMenu: boolean;
   success: boolean;
-  loginFailed:boolean;
-  inputUsername:string;
-  inputPassword:string;
+  loginFailed: boolean;
+  inputUsername: string;
+  inputPassword: string;
 
   constructor(private usersService: UsersService,
               private router: Router,
