@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {WallModel} from '../Wall.model';
 import {UsersService} from '../../../../Users.service';
 import {ActivatedRoute} from '@angular/router';
+import {Comment} from '../Comment.model';
 
 @Component({
   selector: 'app-general',
@@ -16,6 +17,10 @@ export class GeneralComponent implements OnInit {
   editorOptions = {
     placeholder: 'insert content...'
     };
+  commentContent = '';
+  commentOptions = {
+    placeholder: 'insert content...'
+  }
 
 
   Posts: WallModel[] = [
@@ -55,13 +60,26 @@ export class GeneralComponent implements OnInit {
 
   onPressed() {
     this.newPost = true;
+
   }
   clicked() {
     this.newPost = false;
     this.Posts.push(new WallModel(this.title, this.editorContent, this.userService.getUserByName('siddharth')));
     this.editorContent = '';
     this.title = '';
+
   }
+
+  newComment(wall: WallModel) {
+    if (this.commentContent.length > 0) {
+      wall.addComment(new Comment(this.commentContent, this.userService.getUserByName('siddharth')));
+    }
+    wall.newComment();
+    this.commentContent = '';
+  }
+
+
+
 
 }
 
