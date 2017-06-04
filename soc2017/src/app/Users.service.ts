@@ -32,7 +32,8 @@ export class UsersService {
     } else if (inputName === 'siddharth' && inputpw === 'madhavan') {
       return true;
     } else {
-      return false;
+      return false; // for debugging purposes
+      // return false;
     }
   }
 
@@ -48,7 +49,7 @@ export class UsersService {
 
 
 
-  getModules(user:string){
+  getModules(user: string) {
     return
   }
 

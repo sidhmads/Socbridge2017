@@ -35,6 +35,18 @@ a:hover{
   margin-top: 10px;
   border:1px #003D7C solid;
 }
+#content button.readmore{
+  display: block;
+  float: right;
+  color:white;
+  padding: 5px 9px;
+  background: #2e6da4;
+  border-radius: 5px;
+}
+
+#content button.readmore:hover {
+  background: black;
+}
 
 #content article:hover {
   border:5px black solid;
@@ -43,6 +55,33 @@ a:hover{
 #content article span{
   font-style: italic;
   color: black;
+}
+
+#content .badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: white;
+  border-radius: 10px;
+}
+#content button.newComment{
+  display: block;
+  float: right;
+  color:white;
+  margin-left: 5px;
+  padding: 5px 9px;
+  background: #EF7C00;
+  border-radius: 5px;
+}
+
+#content button.newComment:hover {
+  background: black;
 }
 
 
