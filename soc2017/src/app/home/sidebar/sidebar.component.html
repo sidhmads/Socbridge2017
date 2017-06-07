@@ -44,24 +44,21 @@
         <li routerLinkActive="active" class="dropdown" appDropdown >
           <a class="dropdown-toggle" data-toggle="dropdown" routerLink="/home/{{currentUser.firstName}}/course">{{ currentUser.course }}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
           <ul class="dropdown-menu forAnimate" role="menu">
-            <li><a>Description</a></li>
-            <li><a>Wall</a></li>
-            <li><a>Current Module Mates</a></li>
-            <li><a>Chat Box</a></li>
+            <li><a>Requests</a></li>
+            <li><a>Expand</a></li>
           </ul>
         </li>
 
         <li routerLinkActive="active" class="dropdown" appDropdown  *ngFor="let module of currentUser.modules">
-          <a routerLink="/home/{{currentUser.firstName}}/{{module}}" class="dropdown-toggle" data-toggle="dropdown">{{ module }}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+          <a routerLink="/home/{{currentUser.firstName}}/{{module}}/wall" class="dropdown-toggle" data-toggle="dropdown">{{ module }}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
           <ul class="dropdown-menu forAnimate" role="menu">
-            <li><a>Description</a></li>
-            <li><a>Wall</a></li>
-            <li><a>Current Module Mates</a></li>
-            <li><a>Chat Box</a></li>
+            <li><a routerLink="/home/{{currentUser.firstName}}/{{module}}/wall">Wall</a></li>
+            <li><a routerLink="/home/{{currentUser.firstName}}/{{module}}/chat">Chat Box</a></li>
+            <!--<li routerLinkActive="active"><a routerLink="/home/:user/:module/mod-mates">Current Module Mates</a></li>-->
           </ul>
         </li>
-
       </ul>
+      <button class="btn btn-danger">Logout</button>
     </div>
   </div>
 </nav>

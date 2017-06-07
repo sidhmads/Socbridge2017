@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { WallModel } from './Wall.model';
+import { ActivatedRoute } from '@angular/router';
+import { Comment } from './Comment.model';
+import { UsersService } from '../../../Users.service';
 
 @Component({
   selector: 'app-wall',
@@ -6,10 +10,78 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wall.component.css']
 })
 export class WallComponent implements OnInit {
+  newPost = false;
+  title = '';
+  editorContent = '';
+  editorOptions = {
+    placeholder: 'insert content...'
+  };
+  commentContent = '';
+  commentOptions = {
+    placeholder: 'insert content...'
+  }
+  currentModStr:  string ='';
 
-  constructor() { }
+  constructor( private userService: UsersService, private route: ActivatedRoute) {
+    this.currentModStr = this.route.parent.snapshot.params['module'];
+  }
+
+
+  Posts: WallModel[] = [
+    new WallModel('First Post',
+      'The missile, launched at a steep angle, reached an altitude of 2,000km (1,242 miles) and travelled about 700km, ' +
+      'landing in the sea west of Japan. North Korea said on Monday it was a test of the abilities of a ' +
+      '\"newly developed ballistic rocket\". ' ,
+      this.userService.getUserByName('siddharth')),
+    new WallModel('Second Post',
+      'The missile, launched at a steep angle, reached an altitude of 2,000km (1,242 miles) and travelled about 700km, ' +
+      'landing in the sea west of Japan. North Korea said on Monday it was a test of the abilities of a ' +
+      '\"newly developed ballistic rocket\". ' ,
+      this.userService.getUserByName('siddharth')),
+    new WallModel('Third Post',
+      'The missile, launched at a steep angle, reached an altitude of 2,000km (1,242 miles) and travelled about 700km, ' +
+      'landing in the sea west of Japan. North Korea said on Monday it was a test of the abilities of a ' +
+      '\"newly developed ballistic rocket\". ' ,
+      this.userService.getUserByName('siddharth')),
+    new WallModel('Fourth Post',
+      'The missile, launched at a steep angle, reached an altitude of 2,000km (1,242 miles) and travelled about 700km, ' +
+      'landing in the sea west of Japan. North Korea said on Monday it was a test of the abilities of a ' +
+      '\"newly developed ballistic rocket\". ' ,
+      this.userService.getUserByName('siddharth')),
+    new WallModel('Fifth Post',
+      'The missile, launched at a steep angle, reached an altitude of 2,000km (1,242 miles) and travelled about 700km, ' +
+      'landing in the sea west of Japan. North Korea said on Monday it was a test of the abilities of a ' +
+      '\"newly developed ballistic rocket\". ' ,
+      this.userService.getUserByName('siddharth'))
+  ];
+
+  module: string;
 
   ngOnInit() {
   }
+
+  onPressed() {
+    this.newPost = true;
+
+  }
+  clicked() {
+    this.newPost = false;
+    this.Posts.push(new WallModel(this.title, this.editorContent, this.userService.getUserByName('siddharth')));
+    this.editorContent = '';
+    this.title = '';
+
+  }
+
+  newComment(wall: WallModel) {
+    if (this.commentContent.length > 0) {
+      wall.addComment(new Comment(this.commentContent, this.userService.getUserByName('siddharth')));
+    }
+    wall.newComment();
+    this.commentContent = '';
+  }
+
+
+
+
 
 }

@@ -31,7 +31,7 @@
               [(ngModel)] = "inputPassword">
           </div>
           <div >
-            <button class="btn btn-danger">Reset</button>
+            <button (click)="resetFields()" class="btn btn-danger">Reset</button>
           </div>
         </div>
       <button class="btn btn-primary btn-block" (click)= signUpClicked() *ngIf="!loginMenu">Sign Up <span class="caret"></span></button>

@@ -1,3 +1,87 @@
-<p>
-  wall works!
-</p>
+<h1>{{currentModStr}} / Wall</h1>
+<hr>
+<body>
+<div class="row">
+  <div class="col col-xs-offset-10" *ngIf="!newPost ">
+    <button class="btn btn-primary bringDown" (click)="onPressed()">Add New Post</button>
+  </div>
+  <div *ngIf="newPost" class="col col-lg-offset-2 bringDown">
+    <br>
+
+    <div class="col-xs-10">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Title"
+        [(ngModel)] = "title">
+    </div>
+    <br>
+    <br>
+    <div class="col-xs-10">
+      <quill-editor [(ngModel)]="editorContent"
+                    [options]="editorOptions"></quill-editor>
+      <button class="btn btn-primary" (click)="clicked()">Submit</button>
+
+    </div>
+  </div>
+
+
+
+  <div *ngIf="!newPost" class="col col-lg-offset-2">
+    <div id="main">
+      <div id="content">
+        <div *ngFor="let x of Posts">
+          <article>
+            <header class="art-header">
+              <h2 class="title">
+                <a href="#">{{x.title}} {{module}}</a>
+              </h2>
+              <span>Created by: {{x.user.firstName}} {{x.user.lastName}}</span>
+            </header>
+            <p [innerHTML] = "x.content"></p>
+            <div class="row">
+              <div class="col">
+                <button  class="newComment" *ngIf="!x.newCom" (click)="x.newComment()">New Comment</button>
+
+                <button  class="readmore" *ngIf="!x.showComments"
+                         (click)="x.showAllComments()"
+                         [disabled] = "!x.comments.length >0">
+                  Comments <span class="badge" *ngIf="x.comments.length >0">
+                  {{x.comments.length}}</span>
+                </button>
+                <button  class="readmore" *ngIf="x.showComments"
+                         (click)="x.showAllComments()">
+                  Close Comments
+                </button>
+              </div>
+              <div class="col">
+                <div *ngIf="x.showComments">
+                  <div *ngFor="let comment of x.comments">
+                    <br>
+                    <br>
+                    <article class="comments">
+                      <header>
+                        <span>Created by: {{comment.user.firstName}} {{comment.user.firstName}}</span>
+                      </header>
+                      <p [innerHTML] = "comment.content"></p>
+                    </article>
+                  </div>
+                </div>
+                <div *ngIf="x.newCom">
+                  <quill-editor [(ngModel)]="commentContent"
+                                [options]="commentOptions"></quill-editor>
+                  <button  class="newComment submit" *ngIf="x.newCom" (click)="newComment(x)">Submit</button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+
+

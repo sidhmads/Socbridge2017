@@ -8,17 +8,18 @@ import {ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./module.component.css']
 })
 export class ModuleComponent implements OnInit {
-
   currentModuleName: string;
-  constructor(private route: ActivatedRoute) { }
-
-  ngOnInit() {
-    this.route.parent.params
+  constructor(private route: ActivatedRoute) {
+    this.route.params
       .subscribe(
         (params: Params) => {
           this.currentModuleName = params['module'];
         }
       );
+  }
+
+  ngOnInit() {
+
   }
 
 }

@@ -28,7 +28,10 @@ const appRoutes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'home/:firstName', component: HomeComponent, children: [
     {path: 'course', component: CourseComponent, pathMatch: 'full' },
-    {path: ':module', component: ModuleComponent}
+    {path: ':module', component: ModuleComponent, children: [
+      {path: 'wall', component: WallComponent},
+      {path: 'chat', component: ChatroomComponent}
+    ]}
   ]},
   { path: '**', component: LoginComponent}
 ]

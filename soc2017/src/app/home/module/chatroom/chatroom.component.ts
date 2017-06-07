@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-chatroom',
@@ -7,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatroomComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private route: ActivatedRoute) { }
+  currentModStr = this.route.parent.snapshot.params['module'];
   ngOnInit() {
   }
 

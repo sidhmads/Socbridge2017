@@ -46,4 +46,9 @@ export class LoginComponent implements OnInit {
       this.inputPassword = '';
     }
   }
+
+  resetFields(){
+    this.inputUsername = '';
+    this.inputPassword = '';
+  }
 }
