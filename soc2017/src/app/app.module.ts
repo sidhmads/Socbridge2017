@@ -23,6 +23,9 @@ import { DropdownDirective } from './dropdown.directive';
 import { UsersService } from './Users.service';
 import { RouterModule, Routes } from '@angular/router';
 import { QuillEditorModule } from 'ngx-quill-editor';
+import { HttpService } from './http.service';
+
+
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -65,7 +68,7 @@ const appRoutes: Routes = [
     QuillEditorModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UsersService],
+  providers: [HttpService, UsersService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

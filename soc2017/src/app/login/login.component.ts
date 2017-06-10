@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../Users.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { HttpService } from '../http.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -9,24 +12,41 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  // menu viewers
   loginMenu: boolean;
   signupMenu: boolean;
-  success: boolean;
+  // login properties
   loginFailed: boolean;
-  inputUsername: string;
-  inputPassword: string;
+  loginUsername: string;
+  loginPassword: string;
+  // sign up properties
+  signUpFailed: boolean;
+  signUpFirstName: string;
+  signUpLastName: string;
+  signUpEmail: string;
+  signUpPassword: string;
+  signUpCourse: string;
+
 
   constructor(private usersService: UsersService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private httpService: HttpService) { }
 
   ngOnInit() {
     this.loginMenu = false;
     this.signupMenu = false;
-    this.success = false;
+
     this.loginFailed = false;
-    this.inputUsername = '';
-    this.inputPassword = '';
+    this.loginUsername = '';
+    this.loginPassword = '';
+
+    this.signUpFailed = false;
+    this.signUpFirstName = '';
+    this.signUpLastName = '';
+    this.signUpEmail = '';
+    this.signUpPassword = '';
+    this.signUpCourse = '';
   }
 
   loginClicked() {
@@ -38,17 +58,39 @@ export class LoginComponent implements OnInit {
   }
 
   authenticate() {
-    if ( this.usersService.verify(this.inputUsername, this.inputPassword) ) {
-      this.router.navigate(['/home', this.inputUsername, 'course']);
-  } else {
+    if ( this.usersService.verify(this.loginUsername, this.loginPassword) ) {
+      this.router.navigate(['/home', this.loginUsername, 'course']);
+    } else {
       this.loginFailed = true;
-      this.inputUsername = '';
-      this.inputPassword = '';
+      this.loginUsername = '';
+      this.loginPassword = '';
+    }
+  }
+
+
+  register(){
+    if (this.signUpFirstName === '' || this.signUpLastName === '' ||
+       this.signUpEmail === ''  || this.signUpCourse === ''  ||
+       this.signUpPassword === '' ) {
+          this.resetFields();
+          this.signUpFailed = true;
+    } else {
+       this.httpService.register()
+         .subscribe(
+            data => console.log(data),
+            error => console.error(error)
+         );
     }
   }
 
   resetFields(){
-    this.inputUsername = '';
-    this.inputPassword = '';
+    this.loginUsername = '';
+    this.loginPassword = '';
+    this.signUpFirstName = '';
+    this.signUpLastName = '';
+    this.signUpEmail = '';
+    this.signUpPassword = '';
+    this.signUpCourse = '';
   }
+
 }
