@@ -1,8 +1,9 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Params} from '@angular/router';
 import { User } from '../../models/User.model';
 import { UsersService } from '../../Users.service';
-
+import { HttpService } from '../../http.service';
+import { JwtHelper} from 'ng2-jwt';
 
 @Component({
   selector: 'app-course',
@@ -10,15 +11,50 @@ import { UsersService } from '../../Users.service';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
-  currentUser: User = new User('test', 'test', 'test', 'test', 5, ['test', 'test2'], []);
+  currentUser: User = new User('test', 'test', 'test', 'test', 5, ['test', 'test2'], [], 'asdas@hotmail.com', 'asdasd');
 
-  constructor(private route: ActivatedRoute, private userService: UsersService) {
-    this.route.parent.params
+  ivleRetrievedModules = {
+    modules: ['CS1010', 'MA1505', 'GER1000']
+  };
+
+  testUser: User;
+  constructor(private route: ActivatedRoute,
+              private userService: UsersService,
+              private httpService: HttpService,
+              private jwtHelper: JwtHelper) {
+    // this.route.parent.params
+    //   .subscribe(
+    //     (params: Params) => {
+    //       this.currentUser = this.userService.getUserByName(params['firstName']);
+    //     }
+    //   );
+
+    // const decodedToken = this.jwtHelper.decodeToken(localStorage.getItem('token'));
+    // this.testUser = new User(
+    //   decodedToken.user.firstName,
+    //   decodedToken.user.lastName,
+    //   '/',
+    //   decodedToken.user.course,
+    //   3,
+    //   decodedToken.user.modules,
+    //   [],
+    //   decodedToken.user.email,
+    //   decodedToken.user.password
+    // );
+
+    this.testUser = this.userService.getCurrentUser();
+  }
+  ngOnInit() {
+
+  }
+
+  populate() {
+    this.httpService.populate(this.ivleRetrievedModules)
       .subscribe(
-        (params: Params) => {
-          this.currentUser = this.userService.getUserByName(params['firstName']);
-        }
+        data => {
+          console.log(data);
+        },
+        error => console.error(error)
       );
   }
-  ngOnInit() {}
 }

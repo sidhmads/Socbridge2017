@@ -1,12 +1,15 @@
-import {WallModel} from './Wall.model';
+import { Post } from '../../../models/Post.model';
 
 export class WallService {
-  wallPosts: WallModel[] = [];
+  wallPosts: Post[] = [];
 
-  addPost(wallPost: WallModel) {
+  addPost(wallPost: Post) {
     this.wallPosts.push(wallPost);
   }
   getPosts() {
     return this.wallPosts;
+  }
+  removeAll() {
+    this.wallPosts = [];
   }
 }

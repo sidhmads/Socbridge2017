@@ -1,17 +1,16 @@
-import {uuid} from '../util/uuid';
-
 export class User {
   public firstName: string;
   public lastName: string;
-  public id: string;
   public imagePath: string;
   public course: string;
   public yearOfStudy: number;
   public modules: string[];
   public friendList: string[];
+  public email: string;
+  public password: string;
 
   constructor(firstName: string, lastName: string, imagePath: string, faculty: string,
-              yearOfStudy: number, courses: string[], friendList: string[]) {
+              yearOfStudy: number, courses: string[], friendList: string[], email: string, password: string) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.imagePath = imagePath;
@@ -19,6 +18,7 @@ export class User {
     this.yearOfStudy = yearOfStudy;
     this.modules = courses;
     this.friendList = friendList;
-    this.id = uuid();
+    this.email = email;
+    this.password = password;
   }
 }

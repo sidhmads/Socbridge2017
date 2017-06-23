@@ -5,23 +5,37 @@
   <div class="col col-xs-offset-10" *ngIf="!newPost ">
     <button class="btn btn-primary bringDown" (click)="onPressed()">Add New Post</button>
   </div>
-  <div *ngIf="newPost" class="col col-lg-offset-2 bringDown">
+  <div *ngIf="newPost">
     <br>
-
-    <div class="col-xs-10">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Title"
-        [(ngModel)] = "title">
+    <div class="row">
+      <div class="col-xs-10">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Title"
+          [(ngModel)] = "title">
+      </div>
     </div>
     <br>
-    <br>
-    <div class="col-xs-10">
-      <quill-editor [(ngModel)]="editorContent"
-                    [options]="editorOptions"></quill-editor>
-      <button class="btn btn-primary" (click)="clicked()">Submit</button>
 
+    <div class="row">
+      <div class="col-xs-10">
+        <quill-editor [(ngModel)]="editorContent"
+                      [options]="editorOptions"></quill-editor>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        <div class="btn-toolbar" role="toolbar">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-success" (click)="clicked()">Submit</button>
+          </div>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-danger" (click)="cancelNewPost()">Cancel</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -30,7 +44,8 @@
   <div *ngIf="!newPost" class="col col-lg-offset-2">
     <div id="main">
       <div id="content">
-        <div *ngFor="let x of Posts">
+        <!--<div *ngFor="let x of Posts">-->
+        <div *ngFor="let x of wallService.wallPosts">
           <article>
             <header class="art-header">
               <h2 class="title">
@@ -61,7 +76,7 @@
                     <br>
                     <article class="comments">
                       <header>
-                        <span>Created by: {{comment.user.firstName}} {{comment.user.firstName}}</span>
+                        <span>Created by: {{comment.user.firstName}} {{comment.user.lastName}}</span>
                       </header>
                       <p [innerHTML] = "comment.content"></p>
                     </article>

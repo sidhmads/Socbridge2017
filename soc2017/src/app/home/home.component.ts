@@ -10,14 +10,7 @@ import {UsersService} from '../Users.service';
 })
 export class HomeComponent implements OnInit {
 
-  currentUser: User = new User('test', 'test', 'test', 'test', 5, ['test', 'test2'], []);
   constructor(private route: ActivatedRoute, private userService: UsersService) {
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.currentUser = this.userService.getUserByName(params['firstName']);
-        }
-      );
   }
   ngOnInit() {
   }

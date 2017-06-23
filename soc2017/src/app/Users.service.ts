@@ -1,29 +1,87 @@
-import {User} from './models/User.model';
-import {Module} from './models/Module.model';
-import {Course} from './models/Course.model';
+import { User } from './models/User.model';
+import { Module } from './models/Module.model';
+import { Course } from './models/Course.model';
+import { Http } from '@angular/http';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class UsersService {
-  private byModule: Module[] = [];
-  private temp: Module[] = [];
-  private byCourse: Course[] = [];
-  private Users: User[] = [
-    new User('philemon',
+  constructor(private http: Http) {}
+
+  public byModule: Module[] = [];
+  public temp: Module[] = [];
+  public byCourse: Course[] = [];
+  public Users: User[] = [
+    new User('Philemon',
       'tan',
-      'http://imgur.com/u4ZgiJN.png',
+      'http://i.imgur.com/XqGLoAM.png',
       'Computer Engineering',
       2,
       ['CS1010', 'CS1020', 'CS1231', 'MA1505', 'MA1506'],
-      []),
+      [], 'asdsad@hotmail.com', 'asdasd'),
     new User('siddharth',
       'madhavan',
       'http://imgur.com/eA8qWn8.png',
       'Computer Engineering',
       2,
       ['CS1010', 'CS1020', 'CS1231', 'MA1505', 'MA1506'],
-      [])
+      [], 'asdsad@hotmail.com', 'asdsadasd')
   ];
-  private moduleAdded = false;
-  private courseAdded;
+  public moduleAdded = false;
+  public courseAdded;
+  public user: User;
+  public FEmodArr =[];
+
+  createFeUserFromBeObj(BeUser: any){
+    return (
+      new User(
+        BeUser.firstName, BeUser.lastName, 'http://i.imgur.com/XqGLoAM.png',
+        BeUser.course, 2, [], [], BeUser.email, BeUser.password
+      )
+    );
+  }
+
+
+  initializeUserData() {
+    const storageObj = JSON.parse(localStorage.getItem('user'));
+    const BEmodArr = storageObj.modules;
+    var tempMod;
+    for(var i=0; i<BEmodArr.length; i++){
+      tempMod = BEmodArr[i];
+      this.FEmodArr.push(new Module(tempMod.module_code, []));
+    }
+    console.log(this.FEmodArr);
+    this.user = new User(
+      storageObj.firstName,
+      storageObj.lastName,
+      'http://i.imgur.com/XqGLoAM.png',
+      storageObj.course,
+      2,
+      this.FEmodArr,
+      [],
+      storageObj.email,
+      storageObj.password
+    );
+  }
+
+  signOut() {
+    this.FEmodArr = [];
+  }
+
+  getCurrentUser() {
+    return this.user;
+  }
+
+
+  isLoggedIn() {
+    return localStorage.getItem('token') != null;
+  }
+
+
+  // initializeData() {
+  //   this.user = JSON.parse(localStorage.getItem('token'));
+  // }
+
 
 
   verify(inputName: string, inputpw: string){
@@ -36,6 +94,13 @@ export class UsersService {
       // return false;
     }
   }
+
+
+  verify1(inputName: string, inputpw: string) {
+    // this.http.post
+  }
+
+
 
   // to get the user object
   getUserByName(firstName: string) {

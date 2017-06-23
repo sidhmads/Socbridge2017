@@ -1,22 +1,25 @@
-import {User} from '../../../models/User.model';
+import {User} from './User.model';
 import {Comment} from './Comment.model';
 
-export class WallModel {
+export class Post {
   public title: string;
   public content: string;
   public user: User;
+  public mod: string;
   public showComments: boolean;
   public newCom: boolean;
   public comments: Comment[];
+  public id: string;
 
-
-  constructor(title: string, content: string, user: User) {
+  constructor(title: string, content: string, user: User, mod: string, id: string, commentArr: Comment[]) {
     this.title = title;
     this.content = content;
     this.user = user;
+    this.mod = mod;
     this.showComments = false;
     this.newCom = false;
-    this.comments = [];
+    this.comments = commentArr;
+    this.id = id;
   }
 
   getComments() {

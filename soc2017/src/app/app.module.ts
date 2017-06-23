@@ -11,8 +11,6 @@ import { ModuleComponent } from './home/module/module.component';
 import { WallComponent } from './home/module/wall/wall.component';
 import { ModuleMatesComponent } from './home/module/module-mates/module-mates.component';
 import { ChatroomComponent } from './home/module/chatroom/chatroom.component';
-import { OfficialComponent } from './home/module/wall/official/official.component';
-import { GeneralComponent } from './home/module/wall/general/general.component';
 import { CourseComponent } from './home/course/course.component';
 import { CourseConnectComponent } from './home/course/course-connect/course-connect.component';
 import { ProgressChartComponent } from './home/course/progress-chart/progress-chart.component';
@@ -24,6 +22,8 @@ import { UsersService } from './Users.service';
 import { RouterModule, Routes } from '@angular/router';
 import { QuillEditorModule } from 'ngx-quill-editor';
 import { HttpService } from './http.service';
+import { JwtHelper } from 'ng2-jwt';
+import {WallService} from "./home/module/wall/Wall.service";
 
 
 
@@ -51,8 +51,6 @@ const appRoutes: Routes = [
     WallComponent,
     ModuleMatesComponent,
     ChatroomComponent,
-    OfficialComponent,
-    GeneralComponent,
     CourseComponent,
     CourseConnectComponent,
     ProgressChartComponent,
@@ -68,7 +66,7 @@ const appRoutes: Routes = [
     QuillEditorModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [HttpService, UsersService ],
+  providers: [HttpService, UsersService, JwtHelper, WallService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

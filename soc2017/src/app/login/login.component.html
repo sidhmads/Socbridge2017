@@ -20,7 +20,7 @@
               [(ngModel)] = "loginUsername">
           </div>
           <div >
-            <button class="btn btn-primary" (click)="authenticate()">Enter.</button>
+            <button class="btn btn-primary" (click)="signIn()">Enter.</button>
           </div>
 
         </div>
@@ -40,6 +40,11 @@
           <div>
             <button (click)="resetFields()" class="btn btn-danger">Reset</button>
           </div>
+          <div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Invalid Login Credentials
+          </div>
 
     </div>
 
@@ -55,7 +60,7 @@
             [(ngModel)] = "signUpEmail">
         </div>
         <div >
-          <button class="btn btn-primary" (click)="register()">Enter.</button>
+          <button class="btn btn-primary" (click)="signUp()">Enter.</button>
         </div>
 
       </div>
@@ -93,19 +98,14 @@
               <span class="sr-only">Error:</span>
               All input fields are required!
             </div>
-
+            <div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span>
+              Email is already registered.
+            </div>
           </div>
         </div>
-
-
       </div>
     </div>
-
   </div>
-
-  <!--alert-->
-
-
-
-
 </div>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import { User } from '../../models/User.model';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UsersService } from '../../Users.service';
+import { HttpService } from '../../http.service';
 
 
 @Component({
@@ -10,19 +11,25 @@ import { UsersService } from '../../Users.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  currentUser: User = new User('test', 'test', 'test', 'test', 5, ['test', 'test2'], []);
+  currentUser: User;
 
-  constructor(private route: ActivatedRoute, private userService: UsersService) {
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.currentUser = this.userService.getUserByName(params['firstName']);
-        }
-      );
+  constructor(private route: ActivatedRoute,
+              private userService: UsersService,
+              private httpService: HttpService,
+              private router: Router) {
+    // this.route.params
+    //   .subscribe(
+    //     (params: Params) => {
+    //       this.currentUser = this.userService.getUserByName(params['firstName']);
+    //     }
+    //   );
+    // this.currentUser = this.userService.getCurrentUser();
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
+  logout() {
+    this.httpService.signOut();
+    this.router.navigate(['/']);
+    this.userService.signOut();  }
 
 }

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { WallModel } from './Wall.model';
-import { ActivatedRoute } from '@angular/router';
-import { Comment } from './Comment.model';
+import { Post } from '../../../models/Post.model';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Comment } from '../../../models/Comment.model';
 import { UsersService } from '../../../Users.service';
+import { HttpService } from '../../../http.service';
+import { User } from '../../../models/User.model';
+import { WallService } from './Wall.service';
 
 @Component({
   selector: 'app-wall',
@@ -19,45 +22,49 @@ export class WallComponent implements OnInit {
   commentContent = '';
   commentOptions = {
     placeholder: 'insert content...'
+  };
+  currentModStr ='';
+
+  constructor(private userService: UsersService,
+              private route: ActivatedRoute,
+              private httpService: HttpService,
+              private wallService: WallService) {
   }
-  currentModStr:  string ='';
-
-  constructor( private userService: UsersService, private route: ActivatedRoute) {
-    this.currentModStr = this.route.parent.snapshot.params['module'];
-  }
-
-
-  Posts: WallModel[] = [
-    new WallModel('First Post',
-      'The missile, launched at a steep angle, reached an altitude of 2,000km (1,242 miles) and travelled about 700km, ' +
-      'landing in the sea west of Japan. North Korea said on Monday it was a test of the abilities of a ' +
-      '\"newly developed ballistic rocket\". ' ,
-      this.userService.getUserByName('siddharth')),
-    new WallModel('Second Post',
-      'The missile, launched at a steep angle, reached an altitude of 2,000km (1,242 miles) and travelled about 700km, ' +
-      'landing in the sea west of Japan. North Korea said on Monday it was a test of the abilities of a ' +
-      '\"newly developed ballistic rocket\". ' ,
-      this.userService.getUserByName('siddharth')),
-    new WallModel('Third Post',
-      'The missile, launched at a steep angle, reached an altitude of 2,000km (1,242 miles) and travelled about 700km, ' +
-      'landing in the sea west of Japan. North Korea said on Monday it was a test of the abilities of a ' +
-      '\"newly developed ballistic rocket\". ' ,
-      this.userService.getUserByName('siddharth')),
-    new WallModel('Fourth Post',
-      'The missile, launched at a steep angle, reached an altitude of 2,000km (1,242 miles) and travelled about 700km, ' +
-      'landing in the sea west of Japan. North Korea said on Monday it was a test of the abilities of a ' +
-      '\"newly developed ballistic rocket\". ' ,
-      this.userService.getUserByName('siddharth')),
-    new WallModel('Fifth Post',
-      'The missile, launched at a steep angle, reached an altitude of 2,000km (1,242 miles) and travelled about 700km, ' +
-      'landing in the sea west of Japan. North Korea said on Monday it was a test of the abilities of a ' +
-      '\"newly developed ballistic rocket\". ' ,
-      this.userService.getUserByName('siddharth'))
-  ];
-
-  module: string;
 
   ngOnInit() {
+    var wallSvc = this.wallService;
+    var userSvc = this.userService;
+    this.route.parent.params
+      .subscribe(
+        (params: Params) => {
+          this.currentModStr = params['module'];
+          this.wallService.removeAll();
+          var storageUserObj = JSON.parse(localStorage.getItem('user'));
+          var storageModArr = storageUserObj.modules;
+          storageModArr.forEach(function(storageModObj) {//loops through each BE module
+            if (storageModObj.module_code === params['module']) {
+              storageModObj.posts.forEach(function(storageModObjPost){//loops through each post
+                  var commentArr = [];
+                  storageModObjPost.comments.forEach(function(storageModObjPostComment){//loops through each comment
+                    commentArr.push(new Comment(
+                      storageModObjPostComment.content,
+                      userSvc.createFeUserFromBeObj(storageModObjPostComment.user),
+                      storageModObjPostComment.post
+                    ));
+                  });
+                  wallSvc.addPost(new Post(
+                    storageModObjPost.title,
+                    storageModObjPost.content,
+                    userSvc.createFeUserFromBeObj(storageModObjPost.user),
+                    params['module'],
+                    storageModObjPost._id,
+                    commentArr
+                  ));
+              });
+            }
+          });
+        }
+      );
   }
 
   onPressed() {
@@ -66,17 +73,42 @@ export class WallComponent implements OnInit {
   }
   clicked() {
     this.newPost = false;
-    this.Posts.push(new WallModel(this.title, this.editorContent, this.userService.getUserByName('siddharth')));
+    var tempPost = new Post(this.title, this.editorContent, this.userService.getCurrentUser(), this.currentModStr, '', []);
+    this.wallService.addPost(tempPost);
+    // this.Posts.push(new Post(this.title, this.editorContent, this.userService.getUserByName('siddharth')));
     this.editorContent = '';
     this.title = '';
 
+    this.httpService.sendNewPost(tempPost)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.error(error);
+        }
+      );
+
+  }
+  cancelNewPost() {
+    this.newPost = !this.newPost;
   }
 
-  newComment(wall: WallModel) {
+  newComment(post: Post) {
     if (this.commentContent.length > 0) {
-      wall.addComment(new Comment(this.commentContent, this.userService.getUserByName('siddharth')));
+      var newComment = new Comment(this.commentContent, this.userService.getCurrentUser(), post.id);
+      post.addComment(newComment);
+      this.httpService.sendNewComment(newComment)
+        .subscribe(
+          data => {
+            console.log(data);
+          },
+          error => {
+            console.error(error);
+          }
+        );
     }
-    wall.newComment();
+    post.newComment();
     this.commentContent = '';
   }
 
