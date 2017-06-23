@@ -66,5 +66,23 @@ export class HttpService {
       .catch((error: Response) => Observable.throw(error.json()));
   }
 
+  editPost(post: Post) {
+    const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+    const body = JSON.stringify(post);
+    const header = new Headers({'Content-Type' : 'application/json'});
+    return this.http.post('http://localhost:3000/posts/editPost' + token, body, {headers: header})
+      .map((response: Response) => response.json())
+      .catch((error: Response) => Observable.throw(error.json()));
+  }
+
+  deletePost(post: Post) {
+    const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+    const body = JSON.stringify(post);
+    const header = new Headers({'Content-Type' : 'application/json'});
+    return this.http.post('http://localhost:3000/posts/deletePost' + token, body, {headers: header})
+      .map((response: Response) => response.json())
+      .catch((error: Response) => Observable.throw(error.json()));
+  }
+
 }
 

@@ -24,6 +24,7 @@ export class WallComponent implements OnInit {
     placeholder: 'insert content...'
   };
   currentModStr ='';
+  postEditorBool = false;
 
   constructor(private userService: UsersService,
               private route: ActivatedRoute,
@@ -38,7 +39,7 @@ export class WallComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.currentModStr = params['module'];
-          this.wallService.removeAll();
+          // this.wallService.removeAll();
           var storageUserObj = JSON.parse(localStorage.getItem('user'));
           var storageModArr = storageUserObj.modules;
           storageModArr.forEach(function(storageModObj) {//loops through each BE module
@@ -108,8 +109,37 @@ export class WallComponent implements OnInit {
           }
         );
     }
-    post.newComment();
+    post.showNewCommentEditor();
     this.commentContent = '';
+  }
+
+  saveEditedPost(post: Post) {
+    post.showPostEdit();
+    var currModStr = this.currentModStr;
+    //edit local storage's user and post
+    var tempBeUser = JSON.parse(localStorage.getItem('user'));
+    tempBeUser.modules.forEach(function(mod){
+      if (mod.module_code === currModStr) {
+        mod.posts.forEach(function(postItr){
+          if (postItr._id === post.id) {
+            postItr.content = post.content;
+            postItr.title = post. title;
+            console.log('found and edited');
+          }
+        });
+      }
+    });
+    localStorage.setItem('user', JSON.stringify(tempBeUser));
+    //send rest call to edit
+    this.httpService.editPost(post)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.error(error);
+        }
+      );
   }
 
 

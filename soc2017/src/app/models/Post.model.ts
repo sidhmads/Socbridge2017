@@ -6,20 +6,26 @@ export class Post {
   public content: string;
   public user: User;
   public mod: string;
-  public showComments: boolean;
-  public newCom: boolean;
   public comments: Comment[];
   public id: string;
+
+  public newComBool: boolean;
+  public showCommentsBool: boolean;
+  public editPostBool: boolean;
+  public deletePostBool: boolean;
 
   constructor(title: string, content: string, user: User, mod: string, id: string, commentArr: Comment[]) {
     this.title = title;
     this.content = content;
     this.user = user;
     this.mod = mod;
-    this.showComments = false;
-    this.newCom = false;
     this.comments = commentArr;
     this.id = id;
+
+    this.showCommentsBool = false;
+    this.newComBool = false;
+    this.editPostBool = false;
+    this.deletePostBool = false;
   }
 
   getComments() {
@@ -29,10 +35,48 @@ export class Post {
   addComment(comment: Comment) {
     this.comments.push(comment);
   }
+
   showAllComments() {
-    this.showComments = !this.showComments;
+    if (this.showCommentsBool === false) {
+      this.showCommentsBool = true;
+      this.newComBool = false;
+      this.editPostBool = false;
+      this.deletePostBool = false;
+    } else {
+      this.showCommentsBool = false;
+    }
   }
-  newComment() {
-    this.newCom = !this.newCom;
+
+  showPostEdit() {
+    if (this.editPostBool === false) {
+      this.editPostBool = true;
+      this.newComBool = false;
+      this.showCommentsBool = false;
+      this.deletePostBool = false;
+    } else {
+      this.editPostBool = false;
+    }
+  }
+
+  showNewCommentEditor() {
+    if (this.newComBool === false) {
+      this.newComBool = true;
+      this.showCommentsBool = false;
+      this.editPostBool = false;
+      this.deletePostBool = false;
+    } else {
+      this.newComBool = false;
+    }
+  }
+
+  showDelete() {
+    if (this.deletePostBool === false) {
+      this.deletePostBool = true;
+      this.newComBool = false;
+      this.editPostBool = false;
+      this.showCommentsBool = false;
+    } else {
+      this.deletePostBool = false;
+    }
   }
 }

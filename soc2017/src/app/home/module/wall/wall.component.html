@@ -1,7 +1,9 @@
 <h1>{{currentModStr}} / Wall</h1>
 <hr>
 <body>
+
 <div class="row">
+  <!--new post editor/title-->
   <div class="col col-xs-offset-10" *ngIf="!newPost ">
     <button class="btn btn-primary bringDown" (click)="onPressed()">Add New Post</button>
   </div>
@@ -17,7 +19,7 @@
       </div>
     </div>
     <br>
-
+    <!--new post editor/content-->
     <div class="row">
       <div class="col-xs-10">
         <quill-editor [(ngModel)]="editorContent"
@@ -40,7 +42,7 @@
   </div>
 
 
-
+  <!--main wall-->
   <div *ngIf="!newPost" class="col col-lg-offset-2">
     <div id="main">
       <div id="content">
@@ -56,21 +58,98 @@
             <p [innerHTML] = "x.content"></p>
             <div class="row">
               <div class="col">
-                <button  class="newComment" *ngIf="!x.newCom" (click)="x.newComment()">New Comment</button>
-
-                <button  class="readmore" *ngIf="!x.showComments"
-                         (click)="x.showAllComments()"
-                         [disabled] = "!x.comments.length >0">
-                  Comments <span class="badge" *ngIf="x.comments.length >0">
-                  {{x.comments.length}}</span>
-                </button>
-                <button  class="readmore" *ngIf="x.showComments"
-                         (click)="x.showAllComments()">
-                  Close Comments
-                </button>
+                <!--test-->
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <!--edit button-->
+                  <button type="button"
+                          class="btn btn-info"
+                          (click)="x.showPostEdit()">
+                          <span class="glyphicon glyphicon-wrench"></span>
+                          edit</button>
+                  <!--delete button-->
+                  <button type="button"
+                          class="btn btn-danger"
+                          (click)="x.showDelete()">
+                          <span class="glyphicon glyphicon-trash"></span>
+                          delete</button>
+                  <!--new comment button-->
+                  <button type="button"
+                          class="btn btn-success"
+                          (click)="x.showNewCommentEditor()">
+                          <span class="glyphicon glyphicon-pencil"></span>
+                          New Comment</button>
+                  <!--show comment button-->
+                  <button type="button"
+                          class="btn btn-warning"
+                          *ngIf="!x.showCommentsBool"
+                          (click)="x.showAllComments()"
+                          [disabled] = "!x.comments.length >0">
+                          <span class="glyphicon glyphicon-plus"></span>
+                          Show comments
+                          <span class="badge" >{{x.comments.length}}</span></button>
+                  <!--close comment button-->
+                  <button type="button"
+                          class="btn btn-warning"
+                          *ngIf="x.showCommentsBool"
+                          (click)="x.showAllComments()">
+                          <span class="glyphicon glyphicon-minus"></span>
+                          Close comments
+                          <span class="badge" >{{x.comments.length}}</span></button>
+                </div>
               </div>
+              <!--delete confirmation-->
+              <div *ngIf = "x.deletePostBool">
+                <br>
+                <br>
+                <div class="alert alert-danger">
+                  <strong>Danger!</strong> Confirmation for deletion(This action is irreversible) --
+                  <button class="btn btn-danger"
+                          (click)="wallService.removeOne(x)">Confirm
+                    <span class="glyphicon glyphicon-ok"></span></button>
+                </div>
+              </div>
+
+
+
+
+              <!--post editor-->
+              <div *ngIf="x.editPostBool">
+                <br>
+                <br>
+                <hr>
+                <div class="row">
+                  <div class="col-xs-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Title"
+                      [(ngModel)] = "x.title">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-10">
+                    <quill-editor [(ngModel)]="x.content"
+                                  [options]="editorOptions"></quill-editor>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-xs-10">
+                    <div class="btn-toolbar" role="toolbar">
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-success" (click)="saveEditedPost(x)">Save</button>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-danger" (click)="x.showPostEdit()">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <!--comment section-->
               <div class="col">
-                <div *ngIf="x.showComments">
+                <div *ngIf="x.showCommentsBool">
                   <div *ngFor="let comment of x.comments">
                     <br>
                     <br>
@@ -82,7 +161,8 @@
                     </article>
                   </div>
                 </div>
-                <div *ngIf="x.newCom">
+                <!--new comment editor-->
+                <div *ngIf="x.newComBool">
                   <quill-editor [(ngModel)]="commentContent"
                                 [options]="commentOptions"></quill-editor>
                   <button  class="newComment submit" *ngIf="x.newCom" (click)="newComment(x)">Submit</button>
