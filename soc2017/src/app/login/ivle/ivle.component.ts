@@ -46,6 +46,7 @@ export class IVLEComponent implements OnInit {
             .subscribe(
               data => {
                 console.log(data);
+                localStorage.setItem('user', data.userObj);
               },
               error => console.error(error)
             );
@@ -53,8 +54,9 @@ export class IVLEComponent implements OnInit {
     );
   }
   continue() {
+
     this.userService.initializeUserData();
-     this.router.navigate(['home', this.userService.getCurrentUser().firstName, 'course'])
+    this.router.navigate(['home', this.userService.getCurrentUser().firstName, 'course']);
   }
 
 }
