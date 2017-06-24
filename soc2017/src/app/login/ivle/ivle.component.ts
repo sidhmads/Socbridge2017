@@ -54,6 +54,32 @@ export class IVLEComponent implements OnInit {
       }
     );
   }
+  signIn() { // used for existing users
+    const newUser = new User('', '',
+      '/', '', 0, [], [], this.loginUsername, this.loginPassword);
+    this.httpService.signIn(newUser)
+      .subscribe(
+        data => {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userId', data.userId);
+          localStorage.setItem('user', data.userObj);
+          localStorage.setItem('message', data.message);
+          this.usersService.initializeUserData();
+          var tempUser = this.usersService.getCurrentUser();
+          if (tempUser.modules.length !== 0) {
+            this.router.navigate(['home', this.usersService.getCurrentUser().firstName, 'course']);
+          } else {
+            this.router.navigate(['welcome'])
+          }
+
+        },
+        error => {
+          console.error(error);
+          this.loginFailed = true;
+        }
+      );
+  }
+
   continue() {
     var newId = this.loginService.getId();
     var newPw = this.loginService.getPw();
