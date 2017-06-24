@@ -26,6 +26,8 @@ export class WallComponent implements OnInit {
   currentModStr ='';
   postEditorBool = false;
 
+
+
   constructor(private userService: UsersService,
               private route: ActivatedRoute,
               private httpService: HttpService,
@@ -39,7 +41,7 @@ export class WallComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.currentModStr = params['module'];
-          // this.wallService.removeAll();
+          this.wallService.removeAll();
           var storageUserObj = JSON.parse(localStorage.getItem('user'));
           var storageModArr = storageUserObj.modules;
           storageModArr.forEach(function(storageModObj) {//loops through each BE module
@@ -59,7 +61,8 @@ export class WallComponent implements OnInit {
                     userSvc.createFeUserFromBeObj(storageModObjPost.user),
                     params['module'],
                     storageModObjPost._id,
-                    commentArr
+                    commentArr,
+                    storageModObjPost.user._id === storageUserObj._id
                   ));
               });
             }
@@ -74,7 +77,7 @@ export class WallComponent implements OnInit {
   }
   clicked() {
     this.newPost = false;
-    var tempPost = new Post(this.title, this.editorContent, this.userService.getCurrentUser(), this.currentModStr, '', []);
+    var tempPost = new Post(this.title, this.editorContent, this.userService.getCurrentUser(), this.currentModStr, '', [], true);
     this.wallService.addPost(tempPost);
     // this.Posts.push(new Post(this.title, this.editorContent, this.userService.getUserByName('siddharth')));
     this.editorContent = '';

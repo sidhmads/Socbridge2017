@@ -1,0 +1,383 @@
+<h1>{{currentModStr}} / Chat</h1>
+<hr>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+</script>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="panel panel-primary" *ngIf="joinned; else joinroom">
+        <div class="panel-heading">
+          <span class="glyphicon glyphicon-comment"></span> {{ msgData.room }}
+          <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default btn-xs" (click)="logout()">
+              Logout
+            </button>
+          </div>
+        </div>
+        <div #scrollMe class="panel-body">
+          <ul class="chat">
+            <li *ngFor="let c of chats">
+              <div class="left clearfix" *ngIf="c.nickname===msgData.nickname; else rightchat">
+                            <span class="chat-img pull-left">
+                              <img src="http://placehold.it/50/55C1E7/fff&text=ME" alt="User Avatar" class="img-circle" />
+                            </span>
+                <div class="chat-body clearfix">
+                  <div class="header">
+                    <strong class="primary-font">{{ c.nickname }}</strong> <small class="pull-right text-muted">
+                    <span class="glyphicon glyphicon-time"></span>{{ c.updated_at | date: 'medium' }}</small>
+                  </div>
+                  <p>{{ c.message }}</p>
+                </div>
+              </div>
+              <ng-template #rightchat>
+                <div class="right clearfix">
+                              <span class="chat-img pull-right">
+                                <img src="http://placehold.it/50/FA6F57/fff&text=U" alt="User Avatar" class="img-circle" />
+                              </span>
+                  <div class="chat-body clearfix">
+                    <div class="header">
+                      <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>{{ c.updated_at | date: 'medium' }}</small>
+                      <strong class="pull-right primary-font">{{ c.nickname }}</strong>
+                    </div>
+                    <p>{{ c.message }}</p>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+        <div class="panel-footer">
+          <form (ngSubmit)="sendMessage()" #msgForm="ngForm">
+            <div class="input-group">
+              <input type="hidden" [(ngModel)]="msgData.room" name="room" />
+              <input type="hidden" [(ngModel)]="msgData.nickname" name="nickname" />
+              <input id="btn-input" type="text" [(ngModel)]="msgData.message" name="message" class="form-control input-sm" placeholder="Type your message here..." required="" />
+              <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat" [disabled]="!msgForm.form.valid">
+                                Send</button>
+                        </span>
+            </div>
+          </form>
+        </div>
+      </div>
+      <ng-template #joinroom>
+        <div class="panel panel-primary">
+          <div class="panel-body">
+            <h1>Select Chat Room</h1>
+            <form (ngSubmit)="joinRoom()" #joinForm="ngForm">
+              <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]="newUser.nickname" name="nickname" placeholder="Nickname" required="" />
+              </div>
+              <div class="form-group">
+                <select class="form-control" [(ngModel)]="newUser.room" name="room" required="">
+                  <option>Select Room</option>
+                  <option value="Javascript">Javascript</option>
+                  <option value="Java">Java</option>
+                  <option value="Python">Python</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success" [disabled]="!joinForm.form.valid">Join</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">-->
+<!--<div class="container bootstrap snippet">-->
+  <!--<div class="row">-->
+    <!--<div class="col-md-4 bg-white ">-->
+      <!--<div class=" row border-bottom padding-sm" style="height: 40px;">-->
+        <!--Member-->
+      <!--</div>-->
+
+      <!--&lt;!&ndash; =============================================================== &ndash;&gt;-->
+      <!--&lt;!&ndash; member list &ndash;&gt;-->
+      <!--<ul class="friend-list">-->
+        <!--<li class="active bounceInDown">-->
+          <!--<a href="#" class="clearfix">-->
+            <!--<img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">-->
+            <!--<div class="friend-name">-->
+              <!--<strong>John Doe</strong>-->
+            <!--</div>-->
+            <!--<div class="last-message text-muted">Hello, Are you there?</div>-->
+            <!--<small class="time text-muted">Just now</small>-->
+            <!--<small class="chat-alert label label-danger">1</small>-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<a href="#" class="clearfix">-->
+            <!--<img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">-->
+            <!--<div class="friend-name">-->
+              <!--<strong>Jane Doe</strong>-->
+            <!--</div>-->
+            <!--<div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>-->
+            <!--<small class="time text-muted">5 mins ago</small>-->
+            <!--<small class="chat-alert text-muted"><i class="fa fa-check"></i></small>-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<a href="#" class="clearfix">-->
+            <!--<img src="https://bootdey.com/img/Content/user_3.jpg" alt="" class="img-circle">-->
+            <!--<div class="friend-name">-->
+              <!--<strong>Kate</strong>-->
+            <!--</div>-->
+            <!--<div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>-->
+            <!--<small class="time text-muted">Yesterday</small>-->
+            <!--<small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<a href="#" class="clearfix">-->
+            <!--<img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">-->
+            <!--<div class="friend-name">-->
+              <!--<strong>Kate</strong>-->
+            <!--</div>-->
+            <!--<div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>-->
+            <!--<small class="time text-muted">Yesterday</small>-->
+            <!--<small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<a href="#" class="clearfix">-->
+            <!--<img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">-->
+            <!--<div class="friend-name">-->
+              <!--<strong>Kate</strong>-->
+            <!--</div>-->
+            <!--<div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>-->
+            <!--<small class="time text-muted">Yesterday</small>-->
+            <!--<small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<a href="#" class="clearfix">-->
+            <!--<img src="https://bootdey.com/img/Content/user_6.jpg" alt="" class="img-circle">-->
+            <!--<div class="friend-name">-->
+              <!--<strong>Kate</strong>-->
+            <!--</div>-->
+            <!--<div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>-->
+            <!--<small class="time text-muted">Yesterday</small>-->
+            <!--<small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<a href="#" class="clearfix">-->
+            <!--<img src="https://bootdey.com/img/Content/user_5.jpg" alt="" class="img-circle">-->
+            <!--<div class="friend-name">-->
+              <!--<strong>Kate</strong>-->
+            <!--</div>-->
+            <!--<div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>-->
+            <!--<small class="time text-muted">Yesterday</small>-->
+            <!--<small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<a href="#" class="clearfix">-->
+            <!--<img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">-->
+            <!--<div class="friend-name">-->
+              <!--<strong>Jane Doe</strong>-->
+            <!--</div>-->
+            <!--<div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>-->
+            <!--<small class="time text-muted">5 mins ago</small>-->
+            <!--<small class="chat-alert text-muted"><i class="fa fa-check"></i></small>-->
+          <!--</a>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;=========================================================&ndash;&gt;-->
+    <!--&lt;!&ndash; selected chat &ndash;&gt;-->
+    <!--<div class="col-md-8 bg-white ">-->
+      <!--<div class="chat-message">-->
+        <!--<ul class="chat">-->
+          <!--<li class="left clearfix">-->
+                    	<!--<span class="chat-img pull-left">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_3.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">John Doe</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="right clearfix">-->
+                    	<!--<span class="chat-img pull-right">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">Sarah</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="left clearfix">-->
+                        <!--<span class="chat-img pull-left">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_3.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">John Doe</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="right clearfix">-->
+                        <!--<span class="chat-img pull-right">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">Sarah</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="left clearfix">-->
+                        <!--<span class="chat-img pull-left">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_3.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">John Doe</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="right clearfix">-->
+                        <!--<span class="chat-img pull-right">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">Sarah</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="right clearfix">-->
+                        <!--<span class="chat-img pull-right">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">Sarah</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="right clearfix">-->
+                        <!--<span class="chat-img pull-right">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">Sarah</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="right clearfix">-->
+                        <!--<span class="chat-img pull-right">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">Sarah</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="right clearfix">-->
+                        <!--<span class="chat-img pull-right">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">Sarah</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="right clearfix">-->
+                        <!--<span class="chat-img pull-right">-->
+                    		<!--<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">-->
+                    	<!--</span>-->
+            <!--<div class="chat-body clearfix">-->
+              <!--<div class="header">-->
+                <!--<strong class="primary-font">Sarah</strong>-->
+                <!--<small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>-->
+              <!--</div>-->
+              <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
+      <!--<div class="chat-box bg-white">-->
+        <!--<div class="input-group">-->
+          <!--<input class="form-control border no-shadow no-rounded" placeholder="Type your message here">-->
+          <!--<span class="input-group-btn">-->
+            			<!--<button class="btn btn-success no-rounded" type="button">Send</button>-->
+            		<!--</span>-->
+        <!--</div>&lt;!&ndash; /input-group &ndash;&gt;-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
