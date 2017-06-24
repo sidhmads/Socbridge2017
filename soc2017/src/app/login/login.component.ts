@@ -121,6 +121,7 @@ export class LoginComponent implements OnInit {
           data => {
             console.log(data);
             this.signIn2();
+            this.router.navigate(['welcome']);
           },
           // error => console.error(error)
           error => {
