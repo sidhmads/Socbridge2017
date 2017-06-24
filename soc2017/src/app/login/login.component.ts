@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../http.service';
 import { User } from '../models/User.model';
 import { JwtHelper } from 'ng2-jwt';
+import {LoginService} from "./login.service";
 
 
 @Component({
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private httpService: HttpService,
-              private jwtHelper: JwtHelper) { }
+              private jwtHelper: JwtHelper,
+              private loginService: LoginService) { }
 
   ngOnInit() {
     this.loginMenu = false;
@@ -78,7 +80,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['welcome'])
               }
 
-  },
+          },
           error => {
             console.error(error);
             this.loginFailed = true;
@@ -120,7 +122,8 @@ export class LoginComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            this.signIn2();
+            // this.signIn2();
+            this.loginService.storeCred(this.signUpEmail, this.signUpPassword);
             this.router.navigate(['welcome']);
           },
           // error => console.error(error)

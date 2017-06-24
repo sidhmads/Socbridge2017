@@ -27,7 +27,7 @@ import {WallService} from "./home/module/wall/Wall.service";
 import { IVLEComponent } from './login/ivle/ivle.component';
 import { WelcomeComponent } from './login/welcome/welcome.component';
 import { ChatService } from './chat.service';
-
+import { LoginService } from './login/login.service';
 
 
 const appRoutes: Routes = [
@@ -73,7 +73,7 @@ const appRoutes: Routes = [
     QuillEditorModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [HttpService, UsersService, JwtHelper, WallService, ChatService],
+  providers: [HttpService, UsersService, JwtHelper, WallService, ChatService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UsersService} from "../../Users.service";
-import {User} from "../../models/User.model";
-import {HttpService} from "app/http.service";
+import {UsersService} from '../../Users.service';
+import {User} from '../../models/User.model';
+import {HttpService} from 'app/http.service';
+import {LoginService} from '../login.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class IVLEComponent implements OnInit {
     modules: []
   }
 
-  constructor(private http: Http, private route: ActivatedRoute, private userService: UsersService, private router: Router, private httpService: HttpService) {
+  constructor(private http: Http, private route: ActivatedRoute, private userService: UsersService, private router: Router, private httpService: HttpService, private loginService: LoginService) {
     this.access_token = (this.route.snapshot.queryParams['token']);
     this.profile = this.http.request('https://ivle.nus.edu.sg/api/Lapi.svc/Profile_View?APIKey='
       + this.api_key + '&AuthToken=' + this.access_token);
@@ -54,9 +55,29 @@ export class IVLEComponent implements OnInit {
     );
   }
   continue() {
+    const newUser = new User('', '',
+      '/', '', 0, [], [], this.loginService.getId(), this.loginService.getPw());
+    this.httpService.signIn(newUser)
+      .subscribe(
+        data => {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userId', data.userId);
+          localStorage.setItem('user', data.userObj);
+          localStorage.setItem('message', data.message);
+          this.userService.initializeUserData();
+          var tempUser = this.userService.getCurrentUser();
+          if (tempUser.modules.length !== 0) {
+            this.router.navigate(['home', this.userService.getCurrentUser().firstName, 'course']);
+          } else {
+            this.router.navigate(['welcome']);
+          }
 
-    this.userService.initializeUserData();
-    this.router.navigate(['home', this.userService.getCurrentUser().firstName, 'course']);
+        },
+        error => {
+          console.error(error);
+
+        }
+      );
   }
 
 }
