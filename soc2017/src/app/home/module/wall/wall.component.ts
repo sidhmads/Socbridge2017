@@ -38,6 +38,7 @@ export class WallComponent implements OnInit {
     this.route.parent.params
       .subscribe(
         (params: Params) => {
+          this.wallService.removeAll();
           this.currentModStr = params['module'];
           // this.wallService.removeAll();
           var storageUserObj = JSON.parse(localStorage.getItem('user'));
