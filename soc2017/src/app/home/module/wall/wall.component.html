@@ -63,13 +63,15 @@
                   <!--edit button-->
                   <button type="button"
                           class="btn btn-info"
-                          (click)="x.showPostEdit()">
+                          (click)="x.showPostEdit()"
+                          *ngIf="x.ownerBool">
                           <span class="glyphicon glyphicon-wrench"></span>
                           edit</button>
                   <!--delete button-->
                   <button type="button"
                           class="btn btn-danger"
-                          (click)="x.showDelete()">
+                          (click)="x.showDelete()"
+                          *ngIf="x.ownerBool">
                           <span class="glyphicon glyphicon-trash"></span>
                           delete</button>
                   <!--new comment button-->
@@ -165,7 +167,7 @@
                 <div *ngIf="x.newComBool">
                   <quill-editor [(ngModel)]="commentContent"
                                 [options]="commentOptions"></quill-editor>
-                  <button  class="newComment submit" *ngIf="x.newCom" (click)="newComment(x)">Submit</button>
+                  <button  class="newComment submit" *ngIf="x.newComBool" (click)="newComment(x)">Submit</button>
                 </div>
               </div>
             </div>

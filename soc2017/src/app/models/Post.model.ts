@@ -13,14 +13,16 @@ export class Post {
   public showCommentsBool: boolean;
   public editPostBool: boolean;
   public deletePostBool: boolean;
+  public ownerBool: boolean;
 
-  constructor(title: string, content: string, user: User, mod: string, id: string, commentArr: Comment[]) {
+  constructor(title: string, content: string, user: User, mod: string, id: string, commentArr: Comment[], ownerBool: boolean) {
     this.title = title;
     this.content = content;
     this.user = user;
     this.mod = mod;
     this.comments = commentArr;
     this.id = id;
+    this.ownerBool = ownerBool;
 
     this.showCommentsBool = false;
     this.newComBool = false;

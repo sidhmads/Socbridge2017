@@ -10,7 +10,7 @@ import { SidebarComponent } from './home/sidebar/sidebar.component';
 import { ModuleComponent } from './home/module/module.component';
 import { WallComponent } from './home/module/wall/wall.component';
 import { ModuleMatesComponent } from './home/module/module-mates/module-mates.component';
-import { ChatroomComponent } from './home/module/chatroom/chatroom.component';
+import { ChatComponent } from './home/module/chatroom/chat.component';
 import { CourseComponent } from './home/course/course.component';
 import { CourseConnectComponent } from './home/course/course-connect/course-connect.component';
 import { ProgressChartComponent } from './home/course/progress-chart/progress-chart.component';
@@ -26,6 +26,7 @@ import { JwtHelper } from 'ng2-jwt';
 import {WallService} from "./home/module/wall/Wall.service";
 import { IVLEComponent } from './login/ivle/ivle.component';
 import { WelcomeComponent } from './login/welcome/welcome.component';
+import { ChatService } from './chat.service';
 
 
 
@@ -37,7 +38,7 @@ const appRoutes: Routes = [
     {path: 'course', component: CourseComponent, pathMatch: 'full' },
     {path: ':module', component: ModuleComponent, children: [
       {path: 'wall', component: WallComponent},
-      {path: 'chat', component: ChatroomComponent}
+      {path: 'chat', component: ChatComponent}
     ]}
   ]},
   { path: '**', component: LoginComponent}
@@ -54,7 +55,7 @@ const appRoutes: Routes = [
     ModuleComponent,
     WallComponent,
     ModuleMatesComponent,
-    ChatroomComponent,
+    ChatComponent,
     CourseComponent,
     CourseConnectComponent,
     ProgressChartComponent,
@@ -72,7 +73,7 @@ const appRoutes: Routes = [
     QuillEditorModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [HttpService, UsersService, JwtHelper, WallService],
+  providers: [HttpService, UsersService, JwtHelper, WallService, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
