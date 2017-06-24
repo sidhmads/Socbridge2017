@@ -55,7 +55,9 @@ export class IVLEComponent implements OnInit {
     );
   }
   continue() {
-    const newUser = new User('', '',
+    var newId = this.loginService.getId();
+    var newPw = this.loginService.getPw();
+    var newUser = new User('', '',
       '/', '', 0, [], [], this.loginService.getId(), this.loginService.getPw());
     this.httpService.signIn(newUser)
       .subscribe(
