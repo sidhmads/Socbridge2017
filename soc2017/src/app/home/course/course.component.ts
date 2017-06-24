@@ -43,6 +43,7 @@ export class CourseComponent implements OnInit {
     // );
 
     this.testUser = this.userService.getCurrentUser();
+    console.log(this.userService.getCurrentUser().modules);
     this.ivleRetrievedModules.modules = this.userService.getCurrentUser().modules;
   }
   ngOnInit() {
