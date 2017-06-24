@@ -9,6 +9,9 @@ export class User {
   public email: string;
   public password: string;
 
+
+
+
   constructor(firstName: string, lastName: string, imagePath: string, faculty: string,
               yearOfStudy: number, courses: string[], friendList: string[], email: string, password: string) {
     this.firstName = firstName;
@@ -20,5 +23,6 @@ export class User {
     this.friendList = friendList;
     this.email = email;
     this.password = password;
+
   }
 }

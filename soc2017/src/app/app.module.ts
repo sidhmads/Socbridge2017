@@ -24,11 +24,15 @@ import { QuillEditorModule } from 'ngx-quill-editor';
 import { HttpService } from './http.service';
 import { JwtHelper } from 'ng2-jwt';
 import {WallService} from "./home/module/wall/Wall.service";
+import { IVLEComponent } from './login/ivle/ivle.component';
+import { WelcomeComponent } from './login/welcome/welcome.component';
 
 
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
+  {path: 'welcome', component: WelcomeComponent},
+  {path: 'IVLE', component: IVLEComponent},
   { path: 'home/:firstName', component: HomeComponent, children: [
     {path: 'course', component: CourseComponent, pathMatch: 'full' },
     {path: ':module', component: ModuleComponent, children: [
@@ -57,7 +61,9 @@ const appRoutes: Routes = [
     ConnectDiscoverComponent,
     ConnectRequestComponent,
     ConnectFriendsComponent,
-    DropdownDirective
+    DropdownDirective,
+    IVLEComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,

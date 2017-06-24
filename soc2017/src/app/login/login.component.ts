@@ -71,8 +71,14 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('user', data.userObj);
               localStorage.setItem('message', data.message);
               this.usersService.initializeUserData();
-              this.router.navigate(['home', this.usersService.getCurrentUser().firstName, 'course']);
-          },
+              var tempUser = this.usersService.getCurrentUser();
+              if (tempUser.modules.length !== 0) {
+                this.router.navigate(['home', this.usersService.getCurrentUser().firstName, 'course']);
+              } else {
+                this.router.navigate(['welcome'])
+              }
+
+  },
           error => {
             console.error(error);
             this.loginFailed = true;

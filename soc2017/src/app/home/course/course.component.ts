@@ -14,7 +14,7 @@ export class CourseComponent implements OnInit {
   currentUser: User = new User('test', 'test', 'test', 'test', 5, ['test', 'test2'], [], 'asdas@hotmail.com', 'asdasd');
 
   ivleRetrievedModules = {
-    modules: ['CS1010', 'MA1505', 'GER1000']
+    modules: []
   };
 
   testUser: User;
@@ -43,6 +43,7 @@ export class CourseComponent implements OnInit {
     // );
 
     this.testUser = this.userService.getCurrentUser();
+    this.ivleRetrievedModules.modules = this.userService.getCurrentUser().modules;
   }
   ngOnInit() {
 
