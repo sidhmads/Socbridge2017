@@ -35,77 +35,50 @@ export class IVLEComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.module.subscribe(
       (res: Response) => {
         const result = res.json()['Results'];
         for (const mod of result) {
           this.ivleRetrievedModules.modules.push(mod['CourseCode']);
-          this.moduleNames.push(mod['CourseName'])
+          this.moduleNames.push(mod['CourseName']);
         }
         this.httpService.populate(this.ivleRetrievedModules)
             .subscribe(
               data => {
                 console.log(data);
-                localStorage.setItem('user', data.userObj);
+                // localStorage.setItem('user', data.userObj);
+
               },
               error => console.error(error)
             );
       }
     );
   }
-  signIn() { // used for existing users
-    const newUser = new User('', '',
-      '/', '', 0, [], [], this.loginUsername, this.loginPassword);
-    this.httpService.signIn(newUser)
-      .subscribe(
-        data => {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('userId', data.userId);
-          localStorage.setItem('user', data.userObj);
-          localStorage.setItem('message', data.message);
-          this.usersService.initializeUserData();
-          var tempUser = this.usersService.getCurrentUser();
-          if (tempUser.modules.length !== 0) {
-            this.router.navigate(['home', this.usersService.getCurrentUser().firstName, 'course']);
-          } else {
-            this.router.navigate(['welcome'])
-          }
-
-        },
-        error => {
-          console.error(error);
-          this.loginFailed = true;
-        }
-      );
-  }
 
   continue() {
-    var newId = this.loginService.getId();
-    var newPw = this.loginService.getPw();
-    var newUser = new User('', '',
-      '/', '', 0, [], [], this.loginService.getId(), this.loginService.getPw());
-    this.httpService.signIn(newUser)
-      .subscribe(
-        data => {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('userId', data.userId);
-          localStorage.setItem('user', data.userObj);
-          localStorage.setItem('message', data.message);
-          this.userService.initializeUserData();
-          var tempUser = this.userService.getCurrentUser();
-          if (tempUser.modules.length !== 0) {
-            this.router.navigate(['home', this.userService.getCurrentUser().firstName, 'course']);
-          } else {
-            this.router.navigate(['welcome']);
-          }
-
-        },
-        error => {
-          console.error(error);
-
-        }
-      );
+    this.router.navigate(['/']);
+    // var tempUser = this.loginService.getUser();
+    // this.httpService.signIn(tempUser)
+    //   .subscribe(
+    //     data => {
+    //       localStorage.setItem('token', data.token);
+    //       localStorage.setItem('userId', data.userId);
+    //       localStorage.setItem('user', data.userObj);
+    //       localStorage.setItem('message', data.message);
+    //       this.userService.initializeUserData();
+    //       var tempUser = this.userService.getCurrentUser();
+    //       if (tempUser.modules.length !== 0) {
+    //         this.router.navigate(['home', this.userService.getCurrentUser().firstName, 'course']);
+    //       } else {
+    //         this.router.navigate(['welcome']);
+    //       }
+    //
+    //     },
+    //     error => {
+    //       console.error(error);
+    //
+    //     }
+    //   );
   }
 
 }

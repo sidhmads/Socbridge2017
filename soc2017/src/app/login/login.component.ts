@@ -123,7 +123,7 @@ export class LoginComponent implements OnInit {
           data => {
             console.log(data);
             // this.signIn2();
-            this.loginService.storeCred(this.signUpEmail, this.signUpPassword);
+            this.loginService.storeCred(newUser);
             this.router.navigate(['welcome']);
           },
           // error => console.error(error)

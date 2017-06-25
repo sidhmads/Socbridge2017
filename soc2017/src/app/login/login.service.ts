@@ -1,30 +1,14 @@
-import { User } from '../models/User.model';
-import { Post } from '../models/Post.model';
-import { Comment } from '../models/Comment.model';
-import { Http, Response, Headers } from '@angular/http'; // this is Angular's http service
-import { Injectable } from '@angular/core';
-import 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router';
+import {User} from "../models/User.model";
 
-@Injectable()
 export class LoginService {
+  private tempUser = null;
+  constructor() {}
 
-  private loginId;
-  private loginPw;
-
-
-  constructor(private http: Http,
-              private router: Router) {}
-  storeCred(id: string, pw: string){
-    this.loginId = id;
-    this.loginPw = pw;
+  storeCred(user: User){
+    this.tempUser = user;
   }
-  getId(){
-    return this.loginId;
-  }
-  getPw() {
-    return this.loginPw;
+  getUser() {
+    return this.tempUser;
   }
 }
 
