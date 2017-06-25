@@ -20,9 +20,9 @@ export class IVLEComponent implements OnInit {
   private api_key = 'Nxm9ocEZtuEeyUn3ed4Ci';
   private modules: String[] = [];
   private moduleNames: String[] = [];
-  ivleRetrievedModules = {
+  private ivleRetrievedModules = {
     modules: []
-  }
+  };
 
   constructor(private http: Http, private route: ActivatedRoute, private userService: UsersService, private router: Router, private httpService: HttpService, private loginService: LoginService) {
     this.access_token = (this.route.snapshot.queryParams['token']);
@@ -46,8 +46,11 @@ export class IVLEComponent implements OnInit {
             .subscribe(
               data => {
                 console.log(data);
-                // localStorage.setItem('user', data.userObj);
-
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userId', data.userId);
+                localStorage.setItem('user', data.userObj);
+                localStorage.setItem('message', data.message);
+                this.userService.initializeUserData();
               },
               error => console.error(error)
             );
@@ -56,29 +59,9 @@ export class IVLEComponent implements OnInit {
   }
 
   continue() {
-    this.router.navigate(['/']);
-    // var tempUser = this.loginService.getUser();
-    // this.httpService.signIn(tempUser)
-    //   .subscribe(
-    //     data => {
-    //       localStorage.setItem('token', data.token);
-    //       localStorage.setItem('userId', data.userId);
-    //       localStorage.setItem('user', data.userObj);
-    //       localStorage.setItem('message', data.message);
-    //       this.userService.initializeUserData();
-    //       var tempUser = this.userService.getCurrentUser();
-    //       if (tempUser.modules.length !== 0) {
-    //         this.router.navigate(['home', this.userService.getCurrentUser().firstName, 'course']);
-    //       } else {
-    //         this.router.navigate(['welcome']);
-    //       }
-    //
-    //     },
-    //     error => {
-    //       console.error(error);
-    //
-    //     }
-    //   );
+    // this.router.navigate(['home', this.userService.getCurrentUser().firstName, 'course']);
+    this.router.navigate(['']);
+
   }
 
 }

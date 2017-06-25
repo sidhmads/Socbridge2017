@@ -32,13 +32,13 @@ import { LoginService } from './login/login.service';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
-  {path: 'welcome', component: WelcomeComponent},
-  {path: 'IVLE', component: IVLEComponent},
+  { path: 'welcome', component: WelcomeComponent},
+  { path: 'IVLE', component: IVLEComponent},
   { path: 'home/:firstName', component: HomeComponent, children: [
-    {path: 'course', component: CourseComponent, pathMatch: 'full' },
-    {path: ':module', component: ModuleComponent, children: [
-      {path: 'wall', component: WallComponent},
-      {path: 'chat', component: ChatComponent}
+    { path: 'course', component: CourseComponent, pathMatch: 'full' },
+    { path: ':module', component: ModuleComponent, children: [
+      { path: 'wall', component: WallComponent},
+      { path: 'chat', component: ChatComponent}
     ]}
   ]},
   { path: '**', component: LoginComponent}

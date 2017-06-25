@@ -24,8 +24,6 @@ export class WallComponent implements OnInit {
     placeholder: 'insert content...'
   };
   currentModStr ='';
-  postEditorBool = false;
-
 
 
   constructor(private userService: UsersService,
@@ -79,7 +77,7 @@ export class WallComponent implements OnInit {
   clicked() {
     this.newPost = false;
     var tempPost = new Post(this.title, this.editorContent, this.userService.getCurrentUser(), this.currentModStr, '', [], true);
-    this.wallService.addPost(tempPost);
+    // this.wallService.addPost(tempPost);
     // this.Posts.push(new Post(this.title, this.editorContent, this.userService.getUserByName('siddharth')));
     this.editorContent = '';
     this.title = '';
@@ -88,6 +86,8 @@ export class WallComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
+          tempPost.id = data.postId;
+          this.wallService.addPost(tempPost);
         },
         error => {
           console.error(error);

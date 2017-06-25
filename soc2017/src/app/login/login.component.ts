@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../http.service';
 import { User } from '../models/User.model';
 import { JwtHelper } from 'ng2-jwt';
-import {LoginService} from "./login.service";
+import {LoginService} from './login.service';
 
 
 @Component({
@@ -74,12 +74,11 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('message', data.message);
               this.usersService.initializeUserData();
               var tempUser = this.usersService.getCurrentUser();
-              if (tempUser.modules.length !== 0) {
+              if (tempUser.modules.length > 0) {
                 this.router.navigate(['home', this.usersService.getCurrentUser().firstName, 'course']);
               } else {
-                this.router.navigate(['welcome'])
+                this.router.navigate(['welcome']);
               }
-
           },
           error => {
             console.error(error);
@@ -99,7 +98,12 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', data.userObj);
           localStorage.setItem('message', data.message);
           this.usersService.initializeUserData();
-          this.router.navigate(['home', this.usersService.getCurrentUser().firstName, 'course']);
+          var tempUser = this.usersService.getCurrentUser();
+          if (tempUser.modules.length > 0) {
+            this.router.navigate(['home', this.usersService.getCurrentUser().firstName, 'course']);
+          } else {
+            this.router.navigate(['welcome']);
+          }
         },
         error => {
           console.error(error);
@@ -122,9 +126,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            // this.signIn2();
-            this.loginService.storeCred(newUser);
-            this.router.navigate(['welcome']);
+            this.signIn2();
           },
           // error => console.error(error)
           error => {
