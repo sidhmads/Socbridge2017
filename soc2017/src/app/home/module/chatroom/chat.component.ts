@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import { ChatService } from '../../../chat.service';
 import * as io from 'socket.io-client';
 
@@ -10,9 +10,21 @@ import * as io from 'socket.io-client';
 })
 export class ChatComponent implements OnInit, AfterViewChecked {
 
-  ngOnInit(){
+  currentModStr = '';
+
+  ngOnInit() {
+    this.route.parent.params
+      .subscribe(
+        (params: Params) => {
+          this.currentModStr = params['module'];
+        }
+    );
+  }
+
+  constructor(private route: ActivatedRoute) {
 
   }
+
   ngAfterViewChecked(){
 
   }
