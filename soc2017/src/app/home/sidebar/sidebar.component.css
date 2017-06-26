@@ -39,8 +39,9 @@
 }
 
 .dropdown {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
+
 }
 
 
@@ -123,7 +124,7 @@ nav.sidebar, .main{
 
   /*module drop down*/
   .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
-    color: #C4DFE6;
+    color: white;
     /*font-size: 12px;*/
     /*font-weight: 600;*/
   }
@@ -170,6 +171,7 @@ nav.sidebar, .main{
  /*hover style*/
 nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
   color: #CCC;
+  /*color: black;*/
   /*color: #66A5AD;*/
   background-color: #66A5AD;
   /*background-color: #003B46;*/

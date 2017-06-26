@@ -106,6 +106,9 @@ export class WallComponent implements OnInit {
   cancelNewPost() {
     this.newPost = !this.newPost;
   }
+  cancelNewComment(post: Post) {
+    post.showNewCommentEditor();
+  }
 
   newComment(post: Post) {
     if (this.commentContent.length > 0) {
@@ -122,6 +125,7 @@ export class WallComponent implements OnInit {
         );
     }
     post.showNewCommentEditor();
+    post.showAllComments();
     this.commentContent = '';
   }
 

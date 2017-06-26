@@ -15,12 +15,23 @@
   position: fixed;
   margin: auto;
   color: white;
+  z-index:9999;
 }
+
+
 
 .paddingAwayFromModHeader {
   padding-top: 50px;
 }
 
+.btnPosition {
+  padding-right: 20px;
+}
+
+.btnBarOverflowHider {
+  padding-top: 50px;
+  overflow: hidden;
+}
 
 
 body {
@@ -86,7 +97,15 @@ a:hover{
   overflow: auto;
   padding: 10px 20px;
   margin-top: 10px;
-  border:1px #003D7C solid;
+  border:2px solid #66A5AD;
+}
+#content article.comments{
+  border-radius: 5px;
+  background: #ffffff;
+  overflow: auto;
+  padding: 0px 20px;
+  margin-top: 0px;
+  border:0px #003D7C solid;
 }
 #content button.readmore{
   display: block;
@@ -120,8 +139,14 @@ a:hover{
 }
 
 #content article:hover {
-  border:5px black solid;
+  /*border:1px black solid;*/
 }
+
+#content article.comments:hover {
+  border: 0;
+}
+
+
 
 #content article span{
   /*font-style: italic;*/
@@ -153,6 +178,10 @@ a:hover{
 
 #content button.newComment:hover {
   background: black;
+}
+
+#content hr.commentLine {
+  border: 1px solid #66A5AD;
 }
 
 

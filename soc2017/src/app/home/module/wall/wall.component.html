@@ -34,29 +34,36 @@
           <quill-editor [(ngModel)]="editorContent"
                         [options]="editorOptions"></quill-editor>
         </div>
-        <div class="row btn-group  buttonSizes">
-          <div class="col-xs-10">
-            <div class="btn-toolbar" role="toolbar">
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-success" (click)="clicked()">Submit</button>
-              </div>
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-danger" (click)="cancelNewPost()">Cancel</button>
-              </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <!--test-->
+            <div class="btn-group btnPosition" role="group" aria-label="Basic example">
+              <!--edit button-->
+              <button type="button"
+                      class="btn btn-success"
+                      (click)="clicked()"
+                      >
+                <span class="glyphicon glyphicon-wrench"></span>
+                Submit</button>
+              <!--delete button-->
+              <button type="button"
+                      class="btn btn-danger"
+                      (click)="cancelNewPost()"
+                      >
+                <span class="glyphicon glyphicon-trash"></span>
+                Cancel</button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
-
-
     <hr>
   </div>
 
 
   <!--main wall-->
-  <div  class="col col-lg-offset-1">
+  <div  class="col col-lg-offset-1 paddingAwayFromModHeader">
     <!--<div *ngIf="!newPost" class="col col-lg-offset-1">-->
     <div id="main">
       <div id="content">
@@ -166,22 +173,44 @@
               <!--comment section-->
               <div class="col">
                 <div *ngIf="x.showCommentsBool">
+                  <br>
+                  <hr class="commentLine">
                   <div *ngFor="let comment of x.comments">
-                    <br>
-                    <br>
                     <article class="comments">
                       <header>
-                        <span>Created by: {{comment.user.firstName}} {{comment.user.lastName}}</span>
+                        <span>Comment by: {{comment.user.firstName}} {{comment.user.lastName}}</span>
                       </header>
                       <p [innerHTML] = "comment.content"></p>
                     </article>
+                    <hr>
                   </div>
                 </div>
                 <!--new comment editor-->
                 <div *ngIf="x.newComBool">
                   <quill-editor [(ngModel)]="commentContent"
                                 [options]="commentOptions"></quill-editor>
-                  <button  class="newComment submit" *ngIf="x.newComBool" (click)="newComment(x)">Submit</button>
+                  <!--<button  class="newComment submit" *ngIf="x.newComBool" (click)="newComment(x)">Submit</button>-->
+                  <div class="row">
+                    <div class="col">
+                      <!--test-->
+                      <div class="btn-group btnPosition" role="group" aria-label="Basic example">
+                        <!--edit button-->
+                        <button type="button"
+                                class="btn btn-success"
+                                (click)="newComment(x)"
+                        >
+                          <span class="glyphicon glyphicon-ok"></span>
+                          Submit</button>
+                        <!--cancel button-->
+                        <button type="button"
+                                class="btn btn-danger"
+                                (click)="cancelNewComment(x)"
+                        >
+                          <span class="glyphicon glyphicon-remove"></span>
+                          Cancel</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
