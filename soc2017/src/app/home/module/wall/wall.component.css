@@ -10,6 +10,18 @@
   background-color: white;
 }
 
+.modHeader {
+  background-color: #07575B;
+  position: fixed;
+  margin: auto;
+  color: white;
+}
+
+.paddingAwayFromModHeader {
+  padding-top: 50px;
+}
+
+
 
 body {
 
@@ -24,6 +36,7 @@ body {
   padding-right: 0;
   margin-top: 0;
   margin-right:0;
+  overflow: hidden;
 }
 
 .btn-group {
