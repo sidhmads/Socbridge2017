@@ -38,7 +38,6 @@ export class WallComponent implements OnInit {
     this.route.parent.params
       .subscribe(
         (params: Params) => {
-          this.wallService.removeAll();
           this.currentModStr = params['module'];
           this.wallService.removeAll();
           var storageUserObj = JSON.parse(localStorage.getItem('user'));
@@ -88,6 +87,15 @@ export class WallComponent implements OnInit {
           console.log(data);
           tempPost.id = data.postId;
           this.wallService.addPost(tempPost);
+          //adding to local storage
+          var currModStr = this.currentModStr;
+          var tempBeUser = JSON.parse(localStorage.getItem('user'));
+          tempBeUser.modules.forEach(function(mod){
+            if (mod.module_code === currModStr) {
+              mod.posts.push(data.post);
+            }
+          });
+          localStorage.setItem('user', JSON.stringify(tempBeUser));
         },
         error => {
           console.error(error);

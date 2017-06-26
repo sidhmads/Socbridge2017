@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UsersService} from '../../Users.service';
 import {User} from '../../models/User.model';
 import {HttpService} from 'app/http.service';
-import {LoginService} from '../login.service';
+
 
 
 @Component({
@@ -18,13 +18,15 @@ export class IVLEComponent implements OnInit {
   private module;
   private profile;
   private api_key = 'Nxm9ocEZtuEeyUn3ed4Ci';
-  private modules: String[] = [];
-  private moduleNames: String[] = [];
   private ivleRetrievedModules = {
     modules: []
   };
 
-  constructor(private http: Http, private route: ActivatedRoute, private userService: UsersService, private router: Router, private httpService: HttpService, private loginService: LoginService) {
+  constructor(private http: Http,
+              private route: ActivatedRoute,
+              private userService: UsersService,
+              private router: Router,
+              private httpService: HttpService) {
     this.access_token = (this.route.snapshot.queryParams['token']);
     this.profile = this.http.request('https://ivle.nus.edu.sg/api/Lapi.svc/Profile_View?APIKey='
       + this.api_key + '&AuthToken=' + this.access_token);
@@ -40,7 +42,6 @@ export class IVLEComponent implements OnInit {
         const result = res.json()['Results'];
         for (const mod of result) {
           this.ivleRetrievedModules.modules.push(mod['CourseCode']);
-          this.moduleNames.push(mod['CourseName']);
         }
         this.httpService.populate(this.ivleRetrievedModules)
             .subscribe(
@@ -60,6 +61,7 @@ export class IVLEComponent implements OnInit {
 
   continue() {
     // this.router.navigate(['home', this.userService.getCurrentUser().firstName, 'course']);
+    localStorage.clear();
     this.router.navigate(['']);
 
   }

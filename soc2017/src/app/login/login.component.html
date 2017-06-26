@@ -1,107 +1,113 @@
-<div class="jumbotron" style="text-align: center">
-  <h1 class="display-3">NUS Connect</h1>
-  <p class="lead">This is a platform for NUS Students to Connect and discuss!</p>
-  <hr class="my-2">
-  <p>Please Login to Continue</p>
-  <hr>
+<div class="row">
+  <div class="col-xs-12 coloring_class">
+    <div  style="text-align: center">
+      <h1 class="display-3">NUS Connect</h1>
+      <p class="lead">
+        This is a platform for NUS Students to Connect and discuss!</p>
+      <hr class="my-2">
+      <!--<hr>-->
+      <p>Please Login to Continue</p>
+      <hr>
 
 
-  <div class="row lead">
-    <!--login-->
-    <div class="col-lg-4 col-lg-offset-4">
-      <button class="btn btn-success btn-block" *ngIf="!signupMenu" (click) = loginClicked()>Login <span class="caret"></span></button>
-      <br>
-        <div *ngIf="loginMenu && !signupMenu">
-          <div class="col-xs-8">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Username (Email)"
-              [(ngModel)] = "loginUsername">
-          </div>
-          <div >
-            <button class="btn btn-primary" (click)="signIn()">Enter.</button>
-          </div>
-
-        </div>
-        <div *ngIf="loginMenu">
-          <div class="col-xs-8">
-            <input
-              type="password"
-              class="form-control"
-              placeholder="Password"
-              [(ngModel)] = "loginPassword">
-            <div class="alert alert-danger" role="alert" *ngIf="loginFailed">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              <span class="sr-only">Error:</span>
-              Login Failed. Please check your username and password.
+      <div class="row lead">
+        <!--login-->
+        <div class="col-lg-4 col-lg-offset-4">
+          <button class="btn btn-success btn-block" *ngIf="!signupMenu" (click) = loginClicked()>Login <span class="caret"></span></button>
+          <br>
+          <div *ngIf="loginMenu && !signupMenu">
+            <div class="col-xs-8">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username (Email)"
+                [(ngModel)] = "loginUsername">
             </div>
+            <div >
+              <button class="btn btn-primary" (click)="signIn()">Enter.</button>
+            </div>
+
           </div>
-          <div>
-            <button (click)="resetFields()" class="btn btn-danger">Reset</button>
-          </div>
-          <div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            Invalid Login Credentials
-          </div>
-
-    </div>
-
-      <!--Sign Up-->
-      <button class="btn btn-primary btn-block" (click)= signUpClicked() *ngIf="!loginMenu">Sign Up <span class="caret"></span></button>
-      <br>
-      <div *ngIf="signupMenu">
-        <div class="col-xs-8">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Email (This will be your username)"
-            [(ngModel)] = "signUpEmail">
-        </div>
-        <div >
-          <button class="btn btn-primary" (click)="signUp()">Enter.</button>
-        </div>
-
-      </div>
-      <div *ngIf="signupMenu">
-        <div class="col-xs-8">
-          <input
-            type="password"
-            class="form-control"
-            placeholder="Password"
-            [(ngModel)] = "signUpPassword">
-        </div>
-        <div>
-          <button (click)="resetFields()" class="btn btn-danger">Reset</button>
-        </div>
-
-        <div *ngIf="signupMenu">
-          <div class="col-xs-8">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="First Name"
-              [(ngModel)] = "signUpFirstName">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Last Name"
-              [(ngModel)] = "signUpLastName">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Course"
-              [(ngModel)] = "signUpCourse">
-            <div class="alert alert-danger" role="alert" *ngIf="signUpFailed">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              <span class="sr-only">Error:</span>
-              All input fields are required!
+          <div *ngIf="loginMenu">
+            <div class="col-xs-8">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                [(ngModel)] = "loginPassword">
+              <div class="alert alert-danger" role="alert" *ngIf="loginFailed">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                Login Failed. Please check your username and password.
+              </div>
+            </div>
+            <div>
+              <button (click)="resetFields()" class="btn btn-danger">Reset</button>
             </div>
             <div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">
               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
               <span class="sr-only">Error:</span>
-              Email is already registered.
+              Invalid Login Credentials
+            </div>
+
+          </div>
+
+          <!--Sign Up-->
+          <button class="btn btn-primary btn-block" (click)= signUpClicked() *ngIf="!loginMenu">Sign Up <span class="caret"></span></button>
+          <br>
+          <div *ngIf="signupMenu">
+            <div class="col-xs-8">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Email (This will be your username)"
+                [(ngModel)] = "signUpEmail">
+            </div>
+            <div >
+              <button class="btn btn-primary" (click)="signUp()">Enter.</button>
+            </div>
+
+          </div>
+          <div *ngIf="signupMenu">
+            <div class="col-xs-8">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                [(ngModel)] = "signUpPassword">
+            </div>
+            <div>
+              <button (click)="resetFields()" class="btn btn-danger">Reset</button>
+            </div>
+
+            <div *ngIf="signupMenu">
+              <div class="col-xs-8">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="First Name"
+                  [(ngModel)] = "signUpFirstName">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last Name"
+                  [(ngModel)] = "signUpLastName">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Course"
+                  [(ngModel)] = "signUpCourse">
+                <div class="alert alert-danger" role="alert" *ngIf="signUpFailed">
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                  <span class="sr-only">Error:</span>
+                  All input fields are required!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                  <span class="sr-only">Error:</span>
+                  Email is already registered.
+                </div>
+              </div>
             </div>
           </div>
         </div>

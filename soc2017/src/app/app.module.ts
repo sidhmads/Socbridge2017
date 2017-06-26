@@ -23,15 +23,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { QuillEditorModule } from 'ngx-quill-editor';
 import { HttpService } from './http.service';
 import { JwtHelper } from 'ng2-jwt';
-import {WallService} from "./home/module/wall/Wall.service";
+import {WallService} from './home/module/wall/Wall.service';
 import { IVLEComponent } from './login/ivle/ivle.component';
 import { WelcomeComponent } from './login/welcome/welcome.component';
 import { ChatService } from './chat.service';
-import { LoginService } from './login/login.service';
-
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
+  // { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent},
   { path: 'IVLE', component: IVLEComponent},
   { path: 'home/:firstName', component: HomeComponent, children: [
@@ -73,7 +72,7 @@ const appRoutes: Routes = [
     QuillEditorModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [HttpService, UsersService, JwtHelper, WallService, ChatService, LoginService],
+  providers: [HttpService, UsersService, JwtHelper, WallService, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

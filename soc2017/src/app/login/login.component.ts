@@ -5,8 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../http.service';
 import { User } from '../models/User.model';
 import { JwtHelper } from 'ng2-jwt';
-import {LoginService} from './login.service';
-
 
 @Component({
   selector: 'app-login',
@@ -34,8 +32,7 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private httpService: HttpService,
-              private jwtHelper: JwtHelper,
-              private loginService: LoginService) { }
+              private jwtHelper: JwtHelper) { }
 
   ngOnInit() {
     this.loginMenu = false;

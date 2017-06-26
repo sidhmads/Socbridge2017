@@ -3,7 +3,7 @@
     <h1>Welcome</h1>
     <h2>The Courses you have currently enrolled in: </h2>
     <ul>
-      <li *ngFor="let mod of moduleNames" class="modList">
+      <li *ngFor="let mod of ivleRetrievedModules.modules" class="modList">
         <hr>
         {{mod}}
       </li>
