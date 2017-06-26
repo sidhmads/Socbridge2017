@@ -1,0 +1,9 @@
+.full {
+  position: relative;
+  background-size: cover;
+  min-height:100vh;
+  width: 100%;
+  background-color: #C4DFE6;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
