@@ -111,9 +111,24 @@ export class WallComponent implements OnInit {
   }
 
   newComment(post: Post) {
+    var currModStr = this.currentModStr;
     if (this.commentContent.length > 0) {
       var newComment = new Comment(this.commentContent, this.userService.getCurrentUser(), post.id);
+      //current post adding comment
       post.addComment(newComment);
+      //storing comment in local storage
+      var tempBeUser = JSON.parse(localStorage.getItem('user'));
+      tempBeUser.modules.forEach(function(mod){
+        if (mod.module_code === currModStr) {
+          mod.posts.forEach(function(postItr){
+            if (postItr._id === post.id) {
+              postItr.comments.push(newComment);
+            }
+          });
+        }
+      });
+      localStorage.setItem('user', JSON.stringify(tempBeUser));
+      //rest call for comment
       this.httpService.sendNewComment(newComment)
         .subscribe(
           data => {
