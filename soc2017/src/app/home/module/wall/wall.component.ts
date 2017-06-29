@@ -60,7 +60,7 @@ export class WallComponent implements OnInit {
                     params['module'],
                     storageModObjPost._id,
                     commentArr,
-                    storageModObjPost.user._id === storageUserObj._id
+                    storageModObjPost.user._id === storageUserObj._id || storageModObjPost.user === storageUserObj._id
                   ));
               });
             }

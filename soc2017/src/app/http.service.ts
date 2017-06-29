@@ -39,11 +39,12 @@ export class HttpService {
     localStorage.clear();
   }
 
-  populate(modulesArr: {
-    modules: string[]
+  populate(lapiUri: {
+    url: string
   }) {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-    const body = JSON.stringify(modulesArr);
+    const body = JSON.stringify(lapiUri);
+    // const body = lapiUri;
     const header = new Headers({'Content-Type' : 'application/json'});
     return this.http.post(this.herokusDomain + 'user/populate' + token, body, {headers: header})
       .map((response: Response) => response.json())

@@ -5,8 +5,6 @@ import {UsersService} from '../../Users.service';
 import {User} from '../../models/User.model';
 import {HttpService} from 'app/http.service';
 
-
-
 @Component({
   selector: 'app-ivle',
   templateUrl: './ivle.component.html',
@@ -20,6 +18,9 @@ export class IVLEComponent implements OnInit {
   private api_key = 'Nxm9ocEZtuEeyUn3ed4Ci';
   private ivleRetrievedModules = {
     modules: []
+  };
+  private lapiUrl = {
+    url: ''
   };
 
   constructor(private http: Http,
@@ -37,30 +38,26 @@ export class IVLEComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.module.subscribe(
-      (res: Response) => {
-        const result = res.json()['Results'];
-        for (const mod of result) {
-          this.ivleRetrievedModules.modules.push(mod['CourseCode']);
-        }
-        this.httpService.populate(this.ivleRetrievedModules)
-            .subscribe(
-              data => {
-                console.log(data);
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('userId', data.userId);
-                localStorage.setItem('user', data.userObj);
-                localStorage.setItem('message', data.message);
-                this.userService.initializeUserData();
-              },
-              error => console.error(error)
-            );
-      }
-    );
+    this.lapiUrl.url = 'https://ivle.nus.edu.sg/api/Lapi.svc/Modules?APIKey='
+      + this.api_key + '&AuthToken=' + this.access_token +
+      '&Duration=5000&IncludeAllInfo=true';
+    this.httpService.populate(this.lapiUrl)
+      .subscribe(
+        data => {
+          console.log(data);
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userId', data.userId);
+          localStorage.setItem('user', data.userObj);
+          localStorage.setItem('message', data.message);
+          this.userService.initializeUserData();
+          console.log(data.ivleRetrievedModules);
+          this.ivleRetrievedModules = data.moduleArrObj;
+        },
+        error => console.error(error)
+      );
   }
 
   continue() {
-    // this.router.navigate(['home', this.userService.getCurrentUser().firstName, 'course']);
     localStorage.clear();
     this.router.navigate(['']);
 
