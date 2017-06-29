@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpService {
-  herokusDomain = 'socbridge.herokuapp.com/';
+  herokusDomain = '';
   localDomain = 'http://localhost:3000/';
 
   constructor(private http: Http,
