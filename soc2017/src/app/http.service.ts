@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpService {
+  herokusDomain = 'socbridge.herokuapp.com/';
+  localDomain = 'http://localhost:3000/';
 
   constructor(private http: Http,
               private router: Router) {}
@@ -18,7 +20,7 @@ export class HttpService {
     console.log('Signup attempted');
     const body = JSON.stringify(userCopy);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost:3000/user/signUp', body, {headers: header})
+    return this.http.post(this.herokusDomain + 'user/signUp', body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) =>  Observable.throw(error.json()));
   }
@@ -28,7 +30,7 @@ export class HttpService {
     console.log('Signin attempted');
     const body = JSON.stringify(userCopy);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost:3000/user/signIn', body, {headers: header})
+    return this.http.post(this.herokusDomain + 'user/signIn', body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -43,7 +45,7 @@ export class HttpService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     const body = JSON.stringify(modulesArr);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost:3000/user/populate' + token, body, {headers: header})
+    return this.http.post(this.herokusDomain + 'user/populate' + token, body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -52,7 +54,7 @@ export class HttpService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     const body = JSON.stringify(post);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost:3000/posts/newPost' + token, body, {headers: header})
+    return this.http.post(this.herokusDomain + 'posts/newPost' + token, body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -61,7 +63,7 @@ export class HttpService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     const body = JSON.stringify(comment);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost:3000/posts/newComment' + token, body, {headers: header})
+    return this.http.post(this.herokusDomain + 'posts/newComment' + token, body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -70,7 +72,7 @@ export class HttpService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     const body = JSON.stringify(post);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost:3000/posts/editPost' + token, body, {headers: header})
+    return this.http.post(this.herokusDomain + 'posts/editPost' + token, body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -79,7 +81,7 @@ export class HttpService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     const body = JSON.stringify(post);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost:3000/posts/deletePost' + token, body, {headers: header})
+    return this.http.post(this.herokusDomain + 'posts/deletePost' + token, body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
