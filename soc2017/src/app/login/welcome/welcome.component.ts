@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
+  locaHostStr = 'localhost:4200';
+  herokuDomainStr = 'socbridge.herokuapp.com';
   constructor() { }
 
   ngOnInit() {
