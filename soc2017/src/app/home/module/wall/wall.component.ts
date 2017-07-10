@@ -74,6 +74,7 @@ export class WallComponent implements OnInit {
 
   }
   clicked() {
+    console.log(this.editorContent);
     this.newPost = false;
     var tempPost = new Post(this.title, this.editorContent, this.userService.getCurrentUser(), this.currentModStr, '', [], true);
     // this.wallService.addPost(tempPost);

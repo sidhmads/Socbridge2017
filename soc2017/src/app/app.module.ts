@@ -27,6 +27,9 @@ import {WallService} from './home/module/wall/Wall.service';
 import { IVLEComponent } from './login/ivle/ivle.component';
 import { WelcomeComponent } from './login/welcome/welcome.component';
 import { ChatService } from './chat.service';
+import { SafehtmlPipe } from './safehtml.pipe';
+import { DescriptionComponent } from './home/module/description/description.component';
+import {DescriptionService} from './home/module/Description.service';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -37,7 +40,8 @@ const appRoutes: Routes = [
     { path: 'course', component: CourseComponent, pathMatch: 'full' },
     { path: ':module', component: ModuleComponent, children: [
       { path: 'wall', component: WallComponent},
-      { path: 'chat', component: ChatComponent}
+      { path: 'chat', component: ChatComponent},
+      {path: 'description', component: DescriptionComponent}
     ]}
   ]},
   { path: '**', component: LoginComponent}
@@ -64,6 +68,8 @@ const appRoutes: Routes = [
     DropdownDirective,
     IVLEComponent,
     WelcomeComponent,
+    SafehtmlPipe,
+    DescriptionComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +78,7 @@ const appRoutes: Routes = [
     QuillEditorModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [HttpService, UsersService, JwtHelper, WallService, ChatService],
+  providers: [HttpService, UsersService, JwtHelper, WallService, ChatService,DescriptionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

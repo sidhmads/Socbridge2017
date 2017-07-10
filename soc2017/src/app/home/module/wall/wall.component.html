@@ -76,7 +76,7 @@
               </h2>
               <span>Created by: {{x.user.firstName}} {{x.user.lastName}}</span>
             </header>
-            <p [innerHTML] = "x.content"></p>
+            <p [innerHTML] = "x.content | safehtml"></p>
             <div class="row">
               <div class="col">
                 <!--test-->
@@ -180,7 +180,7 @@
                       <header>
                         <span>Comment by: {{comment.user.firstName}} {{comment.user.lastName}}</span>
                       </header>
-                      <p [innerHTML] = "comment.content"></p>
+                      <p [innerHTML] = "comment.content | safehtml"></p>
                     </article>
                     <hr>
                   </div>

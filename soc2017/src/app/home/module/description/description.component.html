@@ -1,0 +1,117 @@
+<div class="content"><div><div class="row module-page">
+  <div class="col-md-8">
+    <h1 class="module-code">{{currentMod['ModuleCode']}}</h1>
+    <h2 class="module-title">{{currentMod['ModuleTitle']}}</h2>
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="module-main-content" id="details">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title nm-section-title">Module Details</h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <dl>
+                    <dt class="highlight">Description</dt>
+                    <dd class="module-desc">
+                      {{currentMod['ModuleDescription']}}
+                    </dd>
+                    <hr>
+                    <dt *ngIf="currentMod['History'].length>0" class="highlight">Semesters Offered</dt>
+                    <dd>
+                      <span *ngIf="semesters.indexOf(4)>-1" class="label label-default">Special Term II</span>
+                      <span *ngIf="semesters.indexOf(3)>-1" class="label label-default">Special Term I</span>
+                      <span *ngIf="semesters.indexOf(2)>-1" class="label label-default">Semester 2</span>
+                      <span *ngIf="semesters.indexOf(1)>-1" class="label label-default">Semester 1</span>
+                    </dd>
+                    <hr>
+                    <dt class="highlight">Modular Credits (MCs)</dt>
+                    <dd>{{currentMod['ModuleCredit']}}</dd>
+                    <hr>
+                    <dt class="highlight">Preclusion(s)</dt>
+                    <dd>{{currentMod["Preclusion"]}}</dd>
+                    <hr>
+                    <dt class="highlight">Department</dt>
+                    <dd>{{currentMod['Department']}}</dd>
+                    <hr>
+                    <dt class="highlight">Weekly Workload</dt>
+                    <dl class="workload-components">
+                      <dd>Lecture: {{workloads[0]}} hrs</dd>
+                      <dd>Tutorial:  {{workloads[1]}} hrs</dd>
+                      <dd>Lab:  {{workloads[2]}} hrs</dd>
+                      <dd>Project:  {{workloads[3]}} hrs</dd>
+                      <dd>Preparation:  {{workloads[4]}} hrs</dd>
+                    </dl>
+                    <hr>
+                    <dt *ngIf="semesters.indexOf(4)>-1" class="highlight">Special Term II Exam Date</dt>
+                    <dd *ngIf="semesters.indexOf(4)>-1 && examDates[3] != 'No Exam'">
+                      {{examDates[3] | date: 'medium'}}
+                    </dd>
+                    <dd *ngIf="semesters.indexOf(4)>-1 && examDates[3] == 'No Exam'">
+                      {{examDates[3]}}
+                    </dd>
+                    <hr  *ngIf="semesters.indexOf(4)>-1">
+                    <dt *ngIf="semesters.indexOf(3)>-1" class="highlight">Special Term I Exam Date</dt>
+                    <dd *ngIf="semesters.indexOf(3)>-1 && examDates[2] != 'No Exam'">
+                      {{examDates[2] | date: 'medium'}}
+                    </dd>
+                    <dd *ngIf="semesters.indexOf(3)>-1 && examDates[2] == 'No Exam'">
+                      {{examDates[2]}}
+                    </dd>
+                    <hr *ngIf="semesters.indexOf(3)>-1">
+                    <dt *ngIf="semesters.indexOf(2)>-1" class="highlight">Semester 2 Exam Date</dt>
+                    <dd *ngIf="semesters.indexOf(2)>-1 && examDates[1] != 'No Exam'">
+                      {{examDates[1] | date: 'medium'}}
+                    </dd>
+                    <dd *ngIf="semesters.indexOf(2)>-1 && examDates[1] == 'No Exam'">
+                      {{examDates[1]}}
+                    </dd>
+                    <hr *ngIf="semesters.indexOf(2)>-1">
+                    <dt *ngIf="semesters.indexOf(1)>-1" class="highlight">Semester 1 Exam Date</dt>
+                    <dd *ngIf="semesters.indexOf(1)>-1 && examDates[0] != 'No Exam'">
+                      {{examDates[0] | date: 'medium'}}
+                    </dd>
+                    <dd *ngIf="semesters.indexOf(1)>-1 && examDates[0] == 'No Exam'">
+                      {{examDates[0]}}
+                    </dd>
+                    <hr *ngIf="semesters.indexOf(1)>-1">
+                  </dl>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                      <a class="cors btn btn-default" href="{{CORS_web}}" target="_blank">
+                        <i class="fa fa-check fa-fw"></i>
+                        &nbsp;CORS Link
+                      </a>
+                    </div>
+                    <div class="btn-group">
+                      <a class="ivle btn btn-default"  href="{{IVLE_web}}" target="_blank">
+                        <i class="fa fa-graduation-cap"></i>
+                        &nbsp;IVLE Link
+                      </a>
+                    </div>
+                    <div class="btn-group">
+                      <a class="nusmods btn btn-default"   href="{{NUSMODS_web}}" target="_blank">
+                        <i class="fa fa-graduation-cap"></i>
+                        &nbsp;NUSMODS Link
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>

@@ -52,6 +52,7 @@
         <li routerLinkActive="active" class="dropdown" appDropdown  *ngFor="let module of userService.user.modules">
           <a routerLink="/home/{{userService.user.firstName}}/{{module.moduleName}}/wall" class="dropdown-toggle" data-toggle="dropdown">{{ module.moduleName }}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
           <ul class="dropdown-menu forAnimate" role="menu">
+            <li><a routerLink="/home/{{userService.user.firstName}}/{{module.moduleName}}/description">Description</a></li>
             <li><a routerLink="/home/{{userService.user.firstName}}/{{module.moduleName}}/wall">Wall</a></li>
             <li><a routerLink="/home/{{userService.user.firstName}}/{{module.moduleName}}/chat">Chat Box</a></li>
             <!--<li routerLinkActive="active"><a routerLink="/home/:user/:module/mod-mates">Current Module Mates</a></li>-->
