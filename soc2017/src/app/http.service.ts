@@ -20,7 +20,7 @@ export class HttpService {
     console.log('Signup attempted');
     const body = JSON.stringify(userCopy);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post(this.herokusDomain + 'user/signUp', body, {headers: header})
+    return this.http.post(this.localDomain + 'user/signUp', body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) =>  Observable.throw(error.json()));
   }
@@ -30,7 +30,7 @@ export class HttpService {
     console.log('Signin attempted');
     const body = JSON.stringify(userCopy);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post(this.herokusDomain + 'user/signIn', body, {headers: header})
+    return this.http.post(this.localDomain + 'user/signIn', body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -46,7 +46,7 @@ export class HttpService {
     const body = JSON.stringify(lapiUri);
     // const body = lapiUri;
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post(this.herokusDomain + 'user/populate' + token, body, {headers: header})
+    return this.http.post(this.localDomain + 'user/populate' + token, body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -55,7 +55,7 @@ export class HttpService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     const body = JSON.stringify(post);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post(this.herokusDomain + 'posts/newPost' + token, body, {headers: header})
+    return this.http.post(this.localDomain + 'posts/newPost' + token, body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -64,7 +64,7 @@ export class HttpService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     const body = JSON.stringify(comment);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post(this.herokusDomain + 'posts/newComment' + token, body, {headers: header})
+    return this.http.post(this.localDomain + 'posts/newComment' + token, body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -73,7 +73,7 @@ export class HttpService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     const body = JSON.stringify(post);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post(this.herokusDomain + 'posts/editPost' + token, body, {headers: header})
+    return this.http.post(this.localDomain + 'posts/editPost' + token, body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -82,7 +82,7 @@ export class HttpService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     const body = JSON.stringify(post);
     const header = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post(this.herokusDomain + 'posts/deletePost' + token, body, {headers: header})
+    return this.http.post(this.localDomain + 'posts/deletePost' + token, body, {headers: header})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }

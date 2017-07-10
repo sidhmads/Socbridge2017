@@ -172,9 +172,4 @@ export class WallComponent implements OnInit {
         }
       );
   }
-
-
-
-
-
 }

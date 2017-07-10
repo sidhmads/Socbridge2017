@@ -1,33 +1,97 @@
-import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import { ChatService } from '../../../chat.service';
 import * as io from 'socket.io-client';
+import {UsersService} from '../../../Users.service';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, AfterViewChecked {
-
+export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
+  localDomain = 'http://localhost:3000';
+  herokuDomain = 'http://socbridge.herokuapp.com';
+  socket:any =null;
   currentModStr = '';
+  typedMessage:string;
+  messages = [];
+  currUser;
+  currMembers;
+  newMsg: string;
+  joiningInfo: string[];
 
   ngOnInit() {
     this.route.parent.params
       .subscribe(
         (params: Params) => {
+          //reset current member list when module changes
+          this.currMembers = [];
+          //set current module
           this.currentModStr = params['module'];
+          this.joiningInfo = [];
+          //sending join info
+          this.joiningInfo.push(this.currUser.firstName);
+          this.joiningInfo.push(this.currentModStr);
+          this.joinRoom(this.joiningInfo);
         }
     );
   }
 
-  constructor(private route: ActivatedRoute) {
-
+  ngOnDestroy() {
+    // this.socket.emit('leave-all', this.currUser.firstName);
   }
 
-  ngAfterViewChecked(){
+  ngAfterViewChecked() {}
 
+  constructor(private route: ActivatedRoute, private userService: UsersService) {
+    // initializing variables
+    this.currentModStr = route.parent.params['module'];
+    this.currUser = this.userService.getCurrentUser();
+    this.currMembers = [];
+    this.socket = io(this.localDomain);
+
+    //receiving messages
+    this.socket.on('message', function(msg) {
+      this.messages.push(msg);
+    }.bind(this));
+
+    //receiving user joined message
+    this.socket.on('joined-message', function(joinedMsg) {
+      this.messages.push(joinedMsg.italics());
+    }.bind(this));
+
+    //receiving user left message
+    this.socket.on('left-message', function(joinedMsg) {
+      this.messages.push(joinedMsg.italics());
+    }.bind(this));
+
+    // receiving room info
+    this.socket.on('room-info', function(roomInfo) {
+      this.currMembers = roomInfo;
+      console.log(roomInfo);
+    }.bind(this));
   }
+
+  // join room, called on init
+  joinRoom(joiningInfo: string[]) {
+    this.socket.emit('subscribe', joiningInfo);
+  }
+
+  // emit message
+  sendNewMessage() {
+    this.newMsg = this.currUser.firstName + ': ' + this.typedMessage;
+    this.socket.emit('new message', this.newMsg);
+    this.socket.emit('send', {room: this.currentModStr, message: this.newMsg});
+    this.typedMessage = '';
+  }
+
+  enterClicked() {
+    this.newMsg = this.currUser.firstName + ': ' + this.typedMessage;
+    this.socket.emit('new message', this.newMsg);
+    this.socket.emit('send', {room: this.currentModStr, message: this.newMsg});
+    this.typedMessage = '';
+  }
+
 
   //
   // @ViewChild('scrollMe') private myScrollContainer: ElementRef;
