@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../http.service';
 import { User } from '../models/User.model';
 import { JwtHelper } from 'ng2-jwt';
+import {DescriptionService} from '../home/module/Description.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private httpService: HttpService,
-              private jwtHelper: JwtHelper) { }
+              private jwtHelper: JwtHelper,
+              private descriptionService: DescriptionService) { }
 
   ngOnInit() {
     this.loginMenu = false;
@@ -49,6 +51,7 @@ export class LoginComponent implements OnInit {
     this.signUpPassword = '';
     this.signUpCourse = '';
     this.duplicateUserBool = false;
+    this.descriptionService.getData();
   }
 
   loginClicked() {

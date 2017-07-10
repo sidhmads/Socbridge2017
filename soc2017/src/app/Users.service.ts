@@ -3,11 +3,12 @@ import { Module } from './models/Module.model';
 import { Course } from './models/Course.model';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import {DescriptionService} from './home/module/Description.service';
 
 @Injectable()
 export class UsersService {
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private descriptionService: DescriptionService) {}
 
   public user: User;
   public FEmodArr = [];
@@ -28,6 +29,7 @@ export class UsersService {
     for(var i=0; i<BEmodArr.length; i++){
       tempMod = BEmodArr[i];
       this.FEmodArr.push(new Module(tempMod.module_code, []));
+      this.descriptionService.ModsTaken.push(tempMod['module_code']);
     }
     console.log(this.FEmodArr);
     this.user = new User(
@@ -41,6 +43,7 @@ export class UsersService {
       storageObj.email,
       storageObj.password
     );
+    this.descriptionService.compute();
   }
 
   signOut() {
