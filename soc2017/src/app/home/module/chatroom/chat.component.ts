@@ -33,7 +33,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.joiningInfo.push(this.currUser.firstName);
           this.joiningInfo.push(this.currentModStr);
           this.joinRoom(this.joiningInfo);
-        }
+  }
     );
   }
 

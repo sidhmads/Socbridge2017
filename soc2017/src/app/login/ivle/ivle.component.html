@@ -1,14 +1,13 @@
 <div class="container">
   <div class=" centre jumbotron">
-    <h1>Welcome</h1>
-    <h2>The Courses you have currently enrolled in: </h2>
-    <ul>
-      <li *ngFor="let mod of ivleRetrievedModules.modules" class="modList">
-        <hr>
-        {{mod}}
+    <h1>Welcome, {{user}}</h1>
+    <h2>These modules are registered to you. Please proceed to Login: <button class="btn btn-lg btn-success" (click)="continue()">Continue</button></h2>
+    <ul class="list-group">
+      <li *ngFor="let mod of ivleRetrievedModules;
+                  let i = index"
+          [ngClass]="{'alt-mod-display':i%2===0}"
+          class="list-group-item">{{mod}}
       </li>
-      <li>Please proceed to login</li>
     </ul>
-    <button class="btn btn-lg btn-success" (click)="continue()">Continue</button>
   </div>
 </div>

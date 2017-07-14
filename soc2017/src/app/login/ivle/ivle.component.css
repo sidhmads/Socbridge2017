@@ -9,3 +9,14 @@
   list-style: none;
 
 }
+.list-group-item {
+  background:#FFFBFF;
+  font-weight:bold;
+}
+.alt-mod-display {
+  background:white;
+  font-weight:bold;
+}
+.list-group {
+  border:1px solid;
+}

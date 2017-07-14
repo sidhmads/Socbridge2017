@@ -16,12 +16,11 @@ export class IVLEComponent implements OnInit {
   private module;
   private profile;
   private api_key = 'Nxm9ocEZtuEeyUn3ed4Ci';
-  private ivleRetrievedModules = {
-    modules: []
-  };
+  private ivleRetrievedModules = [];
   private lapiUrl = {
     url: ''
   };
+  private user;
 
   constructor(private http: Http,
               private route: ActivatedRoute,
@@ -45,13 +44,16 @@ export class IVLEComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('userId', data.userId);
-          localStorage.setItem('user', data.userObj);
-          localStorage.setItem('message', data.message);
-          this.userService.initializeUserData();
+          // localStorage.setItem('token', data.token);
+          // localStorage.setItem('userId', data.userId);
+          // localStorage.setItem('user', data.userObj);
+          // localStorage.setItem('message', data.message);
+          // this.userService.initializeUserData();
+          this.user = JSON.parse(data.userObj).firstName;
           console.log(data.ivleRetrievedModules);
-          this.ivleRetrievedModules = data.moduleArrObj;
+          var tempArr = data.moduleArrObj.modules;
+          console.log(tempArr);
+          this.ivleRetrievedModules = tempArr;
         },
         error => console.error(error)
       );
@@ -60,7 +62,6 @@ export class IVLEComponent implements OnInit {
   continue() {
     localStorage.clear();
     this.router.navigate(['']);
-
   }
 
 }
