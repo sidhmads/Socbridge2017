@@ -11,10 +11,10 @@
 }
 
 .modHeader {
-  background-color: #F18D9E;
+  background-color: #e7e7e7;
   position: fixed;
   margin: auto;
-  color: white;
+  color: black;
   z-index:9999;
 }
 
@@ -40,7 +40,7 @@ body {
   position: relative;
   background-size: cover;
   min-height:100vh;
-  background-color: #C4DFE6;
+  background-color: #253341;
   padding-bottom: 0;
   margin-bottom: 0;
   padding-top: 0;
@@ -71,7 +71,7 @@ a:hover{
 }
 .sameSize {
   border-radius: 5px;
-  background: #C4DFE6;
+  background: #253341;
   overflow: auto;
   padding: 10px 20px;
   margin-top: 10px;

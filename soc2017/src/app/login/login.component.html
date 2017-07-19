@@ -1,112 +1,238 @@
-<div class="row">
-  <div class="col-xs-12 coloring_class">
-    <div  style="text-align: center">
-      <h1 class="display-3">NUS Connect</h1>
-      <p class="lead">
-        This is a platform for NUS Students to Connect and discuss!</p>
-      <hr class="my-2">
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
+<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--<div class="row">-->
+  <!--<div class="col-xs-12 coloring_class">-->
+    <!--<div  style="text-align: center">-->
+      <!--<h1 class="display-3">NUS Connect</h1>-->
+      <!--<p class="lead">-->
+        <!--This is a platform for NUS Students to Connect and discuss!</p>-->
+      <!--<hr class="my-2">-->
+      <!--&lt;!&ndash;<hr>&ndash;&gt;-->
+      <!--<p>Please Login to Continue</p>-->
       <!--<hr>-->
-      <p>Please Login to Continue</p>
-      <hr>
 
 
-      <div class="row lead">
-        <!--login-->
-        <div class="col-lg-4 col-lg-offset-4">
-          <button class="btn btn-success btn-block" *ngIf="!signupMenu" (click) = loginClicked()>Login <span class="caret"></span></button>
-          <br>
-          <div *ngIf="loginMenu && !signupMenu">
-            <div class="col-xs-8">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Username (Email)"
-                [(ngModel)] = "loginUsername">
-            </div>
-            <div >
-              <button class="btn btn-primary" (click)="signIn()">Enter.</button>
-            </div>
+      <!--<div class="row lead">-->
+        <!--&lt;!&ndash;login&ndash;&gt;-->
+        <!--<div class="col-lg-4 col-lg-offset-4">-->
+          <!--<button class="btn btn-success btn-block" *ngIf="!signupMenu" (click) = loginClicked()>Login <span class="caret"></span></button>-->
+          <!--<br>-->
+          <!--<div *ngIf="loginMenu && !signupMenu">-->
+            <!--<div class="col-xs-8">-->
+              <!--<input-->
+                <!--type="text"-->
+                <!--class="form-control"-->
+                <!--placeholder="Username (Email)"-->
+                <!--[(ngModel)] = "loginUsername">-->
+            <!--</div>-->
+            <!--<div >-->
+              <!--<button class="btn btn-primary" (click)="signIn()">Enter.</button>-->
+            <!--</div>-->
 
+          <!--</div>-->
+          <!--<div *ngIf="loginMenu">-->
+            <!--<div class="col-xs-8">-->
+              <!--<input-->
+                <!--type="password"-->
+                <!--class="form-control"-->
+                <!--placeholder="Password"-->
+                <!--[(ngModel)] = "loginPassword">-->
+              <!--<div class="alert alert-danger" role="alert" *ngIf="loginFailed">-->
+                <!--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
+                <!--<span class="sr-only">Error:</span>-->
+                <!--Login Failed. Please check your username and password.-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div>-->
+              <!--<button (click)="resetFields()" class="btn btn-danger">Reset</button>-->
+            <!--</div>-->
+            <!--<div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">-->
+              <!--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
+              <!--<span class="sr-only">Error:</span>-->
+              <!--Invalid Login Credentials-->
+            <!--</div>-->
+
+          <!--</div>-->
+
+          <!--&lt;!&ndash;Sign Up&ndash;&gt;-->
+          <!--<button class="btn btn-primary btn-block" (click)= signUpClicked() *ngIf="!loginMenu">Sign Up <span class="caret"></span></button>-->
+          <!--<br>-->
+          <!--<div *ngIf="signupMenu">-->
+            <!--<div class="col-xs-8">-->
+              <!--<input-->
+                <!--type="text"-->
+                <!--class="form-control"-->
+                <!--placeholder="Email (This will be your username)"-->
+                <!--[(ngModel)] = "signUpEmail">-->
+            <!--</div>-->
+            <!--<div >-->
+              <!--<button class="btn btn-primary" (click)="signUp()">Enter.</button>-->
+            <!--</div>-->
+
+          <!--</div>-->
+          <!--<div *ngIf="signupMenu">-->
+            <!--<div class="col-xs-8">-->
+              <!--<input-->
+                <!--type="password"-->
+                <!--class="form-control"-->
+                <!--placeholder="Password"-->
+                <!--[(ngModel)] = "signUpPassword">-->
+            <!--</div>-->
+            <!--<div>-->
+              <!--<button (click)="resetFields()" class="btn btn-danger">Reset</button>-->
+            <!--</div>-->
+
+            <!--<div *ngIf="signupMenu">-->
+              <!--<div class="col-xs-8">-->
+                <!--<input-->
+                  <!--type="text"-->
+                  <!--class="form-control"-->
+                  <!--placeholder="First Name"-->
+                  <!--[(ngModel)] = "signUpFirstName">-->
+                <!--<input-->
+                  <!--type="text"-->
+                  <!--class="form-control"-->
+                  <!--placeholder="Last Name"-->
+                  <!--[(ngModel)] = "signUpLastName">-->
+                <!--<input-->
+                  <!--type="text"-->
+                  <!--class="form-control"-->
+                  <!--placeholder="Course"-->
+                  <!--[(ngModel)] = "signUpCourse">-->
+                <!--<div class="alert alert-danger" role="alert" *ngIf="signUpFailed">-->
+                  <!--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
+                  <!--<span class="sr-only">Error:</span>-->
+                  <!--All input fields are required!-->
+                <!--</div>-->
+                <!--<div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">-->
+                  <!--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
+                  <!--<span class="sr-only">Error:</span>-->
+                  <!--Email is already registered.-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+<!--<div class="fullheight jumbotron" id="doc3">-->
+<!--</div>-->
+
+<div class="container">
+
+  <div class="jumbotron">
+    <h1>NUSConnect</h1>
+    <div class="row lead">
+      <!--login-->
+      <div class="col-lg-4 col-lg-offset-4">
+        <button class="btn btn-success btn-block " *ngIf="!signupMenu" (click) = loginClicked()>Login <span class="caret"></span></button>
+        <br>
+        <div *ngIf="loginMenu && !signupMenu">
+          <div class="col-xs-8">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Username (Email)"
+              [(ngModel)] = "loginUsername">
           </div>
-          <div *ngIf="loginMenu">
-            <div class="col-xs-8">
-              <input
-                type="password"
-                class="form-control"
-                placeholder="Password"
-                [(ngModel)] = "loginPassword">
-              <div class="alert alert-danger" role="alert" *ngIf="loginFailed">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only">Error:</span>
-                Login Failed. Please check your username and password.
-              </div>
-            </div>
-            <div>
-              <button (click)="resetFields()" class="btn btn-danger">Reset</button>
-            </div>
-            <div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">
+          <div >
+            <button class="btn btn-primary" (click)="signIn()">Enter.</button>
+          </div>
+
+        </div>
+        <div *ngIf="loginMenu">
+          <div class="col-xs-8">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              [(ngModel)] = "loginPassword">
+            <div class="alert alert-danger" role="alert" *ngIf="loginFailed">
               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
               <span class="sr-only">Error:</span>
-              Invalid Login Credentials
+              Login Failed. Please check your username and password.
             </div>
-
+          </div>
+          <div>
+            <button (click)="resetFields()" class="btn btn-danger">Reset</button>
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Invalid Login Credentials
           </div>
 
-          <!--Sign Up-->
-          <button class="btn btn-primary btn-block" (click)= signUpClicked() *ngIf="!loginMenu">Sign Up <span class="caret"></span></button>
-          <br>
+        </div>
+
+        <!--Sign Up-->
+        <button class="btn btn-primary btn-block" (click)= signUpClicked() *ngIf="!loginMenu">Sign Up <span class="caret"></span></button>
+        <br>
+        <div *ngIf="signupMenu">
+          <div class="col-xs-8">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Email (This will be your username)"
+              [(ngModel)] = "signUpEmail">
+          </div>
+          <div >
+            <button class="btn btn-primary" (click)="signUp()">Enter.</button>
+          </div>
+
+        </div>
+        <div *ngIf="signupMenu">
+          <div class="col-xs-8">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              [(ngModel)] = "signUpPassword">
+          </div>
+          <div>
+            <button (click)="resetFields()" class="btn btn-danger">Reset</button>
+          </div>
+
           <div *ngIf="signupMenu">
             <div class="col-xs-8">
               <input
                 type="text"
                 class="form-control"
-                placeholder="Email (This will be your username)"
-                [(ngModel)] = "signUpEmail">
-            </div>
-            <div >
-              <button class="btn btn-primary" (click)="signUp()">Enter.</button>
-            </div>
-
-          </div>
-          <div *ngIf="signupMenu">
-            <div class="col-xs-8">
+                placeholder="First Name"
+                [(ngModel)] = "signUpFirstName">
               <input
-                type="password"
+                type="text"
                 class="form-control"
-                placeholder="Password"
-                [(ngModel)] = "signUpPassword">
-            </div>
-            <div>
-              <button (click)="resetFields()" class="btn btn-danger">Reset</button>
-            </div>
-
-            <div *ngIf="signupMenu">
-              <div class="col-xs-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="First Name"
-                  [(ngModel)] = "signUpFirstName">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Last Name"
-                  [(ngModel)] = "signUpLastName">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Course"
-                  [(ngModel)] = "signUpCourse">
-                <div class="alert alert-danger" role="alert" *ngIf="signUpFailed">
-                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  <span class="sr-only">Error:</span>
-                  All input fields are required!
-                </div>
-                <div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">
-                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  <span class="sr-only">Error:</span>
-                  Email is already registered.
-                </div>
+                placeholder="Last Name"
+                [(ngModel)] = "signUpLastName">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Course"
+                [(ngModel)] = "signUpCourse">
+              <div class="alert alert-danger" role="alert" *ngIf="signUpFailed">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                All input fields are required!
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="duplicateUserBool">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                Email is already registered.
               </div>
             </div>
           </div>
@@ -115,6 +241,17 @@
     </div>
   </div>
 </div>
+<nav class="navbar navbar-inverse navbar-static-top" >
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
 
-<div class="fullheight jumbotron" id="doc3">
-</div>
