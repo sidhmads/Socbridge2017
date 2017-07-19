@@ -10,46 +10,140 @@
 <br>
 <br>
 
-
-
 <div class="row">
-  <div class="col-xs-12  chat-container">
-    <!--participant bar-->
-    <div class="col-xs-2 participant-bar rounded">
-      <h4 class="display-3">Participants
-        <span class="badge" >{{currMembers.length}}</span></h4>
-      <hr>
-      <ul>
-        <li *ngFor="let member of currMembers" [innerHtml]="member"></li>
-      </ul>
-    </div>
-    <!--CHAT AREA-->
-    <div class="col-xs-10 chat-area">
-      <div class="row input-field">
-        <div class="input-group">
-          <!--<span class="input-group-addon" id="basic-addon1">{{this.currUser.firstName}}</span>-->
-          <input type="submit text"
-                 class="form-control"
-                 (keyup.enter)="enterClicked()"
-                 placeholder="Type your message here!"
-                 aria-describedby="basic-addon2"
-                 [(ngModel)]="typedMessage">
-          <span class="input-group-btn">
-            <button class="btn btn-secondary" type="button" (click)="sendNewMessage()">
-              <span class="glyphicon glyphicon-send"></span>
-            </button>
-          </span>
+  <div class="col-xs-12 chat-container">
+    <script src="https://use.fontawesome.com/45e03a14ce.js"></script>
+    <div class="main_section">
+      <div class="container">
+        <div class="chat_container">
+          <div class="col-sm-3 chat_sidebar">
+            <div class="row">
+              <div class="member_list">
+                <div class="participant-header">
+                  <p>Participants
+                    <span class="badge">{{currMembers.length}}</span>
+                  </p>
+                </div>
+                <hr>
+                <ul class="list-unstyled">
+                  <li class="left clearfix" *ngFor="let member of currMembers">
+                     <span class="chat-img pull-left">
+                     <img src="http://i.imgur.com/XqGLoAM.png" alt="User Avatar" class="img-circle">
+                     </span>
+                    <div class="chat-body clearfix">
+                      <div class="header_sec">
+                        <strong class="primary-font">{{member}}</strong>
+                      </div>
+                    </div>
+                  </li>
+
+                  <!--<li class="left clearfix">-->
+                     <!--<span class="chat-img pull-left">-->
+                     <!--<img src="http://i.imgur.com/XqGLoAM.png" alt="User Avatar" class="img-circle">-->
+                     <!--</span>-->
+                    <!--<div class="chat-body clearfix">-->
+                      <!--<div class="header_sec">-->
+                        <!--<strong class="primary-font">Test</strong>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</li>-->
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!--chat_sidebar-->
+          <div class="col-sm-9 message_section">
+            <div class="row">
+              <div class="chat_area">
+                <ul class="list-unstyled">
+                  <li class="left clearfix"
+                      [ngClass]="{admin_chat:(currUser.firstName + ':').bold() === msg.split(' ')[0] }"
+                      *ngFor="let msg of messages">
+                     <span class="chat-img1 pull-left" *ngIf="(currUser.firstName + ':').bold() != msg.split(' ')[0]">
+                     <img src="http://i.imgur.com/XqGLoAM.png" alt="User Avatar" class="img-circle">
+                     </span>
+                    <span class="chat-img1 pull-right" *ngIf="(currUser.firstName + ':').bold() === msg.split(' ')[0]">
+                     <img src="http://i.imgur.com/XqGLoAM.png" alt="User Avatar" class="img-circle">
+                     </span>
+                    <div class="chat-body1 clearfix">
+                      <p [innerHtml]="msg"></p>
+                    </div>
+                  </li>
+                  <!--<li class="left clearfix admin_chat">-->
+                     <!--<span class="chat-img1 pull-right">-->
+                     <!--<img src="http://i.imgur.com/XqGLoAM.png" alt="User Avatar" class="img-circle">-->
+                     <!--</span>-->
+                    <!--<div class="chat-body1 clearfix">-->
+                      <!--<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>-->
+                      <!--<div class="chat_time pull-left">09:40PM</div>-->
+                    <!--</div>-->
+                  <!--</li>-->
+                </ul>
+              </div><!--chat_area-->
+              <div class="message_write">
+                <div class="row input-field">
+                  <div class="input-group">
+                    <!--<span class="input-group-addon" id="basic-addon1">{{this.currUser.firstName}}</span>-->
+                    <input type="submit text"
+                           class="form-control"
+                           (keyup.enter)="enterClicked()"
+                           placeholder="Type your message here!"
+                           aria-describedby="basic-addon2"
+                           [(ngModel)]="typedMessage">
+                    <span class="input-group-btn">
+                      <button class="btn btn-secondary" type="button" (click)="sendNewMessage()">
+                        <span class="glyphicon glyphicon-send"></span>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!--message_section-->
         </div>
-      </div>
-      <div class="row chat-display">
-        <ul class="list-group">
-          <li class="list-group-item"
-              [ngClass]="{'alt-msg-display':i%2===0}"
-              *ngFor="let msg of messages; let i = index"
-              [innerHtml]="msg">
-          </li>
-        </ul>
       </div>
     </div>
   </div>
 </div>
+
+<!--<div class="row">-->
+  <!--<div class="col-xs-12  chat-container">-->
+    <!--&lt;!&ndash;participant bar&ndash;&gt;-->
+    <!--<div class="col-xs-2 participant-bar rounded">-->
+      <!--<h4 class="display-3">Participants-->
+        <!--<span class="badge" >{{currMembers.length}}</span></h4>-->
+      <!--<hr>-->
+      <!--<ul>-->
+        <!--<li *ngFor="let member of currMembers" [innerHtml]="member"></li>-->
+      <!--</ul>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;CHAT AREA&ndash;&gt;-->
+    <!--<div class="col-xs-10 chat-area">-->
+      <!--<div class="row input-field">-->
+        <!--<div class="input-group">-->
+          <!--&lt;!&ndash;<span class="input-group-addon" id="basic-addon1">{{this.currUser.firstName}}</span>&ndash;&gt;-->
+          <!--<input type="submit text"-->
+                 <!--class="form-control"-->
+                 <!--(keyup.enter)="enterClicked()"-->
+                 <!--placeholder="Type your message here!"-->
+                 <!--aria-describedby="basic-addon2"-->
+                 <!--[(ngModel)]="typedMessage">-->
+          <!--<span class="input-group-btn">-->
+            <!--<button class="btn btn-secondary" type="button" (click)="sendNewMessage()">-->
+              <!--<span class="glyphicon glyphicon-send"></span>-->
+            <!--</button>-->
+          <!--</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="row chat-display">-->
+        <!--<ul class="list-group">-->
+          <!--<li class="list-group-item"-->
+              <!--[ngClass]="{'alt-msg-display':i%2===0}"-->
+              <!--*ngFor="let msg of messages; let i = index"-->
+              <!--[innerHtml]="msg">-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->

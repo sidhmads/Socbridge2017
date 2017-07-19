@@ -23,7 +23,7 @@ export class CourseComponent implements OnInit {
               private httpService: HttpService,
               private jwtHelper: JwtHelper) {
     this.testUser = this.userService.getCurrentUser();
-    console.log(this.userService.getCurrentUser().modules);
+    // console.log(this.userService.getCurrentUser().modules);
     this.ivleRetrievedModules.modules = this.userService.getCurrentUser().modules;
   }
   ngOnInit() {

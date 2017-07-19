@@ -9,7 +9,7 @@ import {DescriptionService} from './home/module/Description.service';
 export class UsersService {
 
   constructor(private http: Http, private descriptionService: DescriptionService) {}
-
+  public socket: any =null;
   public user: User;
   public FEmodArr = [];
 
@@ -48,9 +48,14 @@ export class UsersService {
 
   signOut() {
     this.FEmodArr = [];
+    this.socket.emit('unsubscribe', this.user.firstName);
   }
 
   getCurrentUser() {
     return this.user;
+  }
+
+  setSocket(socket:any) {
+    this.socket = socket;
   }
 }

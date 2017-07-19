@@ -24,6 +24,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.route.parent.params
       .subscribe(
         (params: Params) => {
+          this.socket.emit('unsubscribe', this.currUser.firstName);
           //reset current member list when module changes
           this.currMembers = [];
           //set current module
@@ -49,20 +50,28 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.currUser = this.userService.getCurrentUser();
     this.currMembers = [];
     this.socket = io(this.localDomain);
+    this.userService.setSocket(this.socket);
 
     //receiving messages
     this.socket.on('message', function(msg) {
-      this.messages.push(msg);
+      var msgArr = msg.split(' ');
+      msgArr[0] = msgArr[0].bold();
+      var newMsg = msgArr.join(' ');
+      this.messages.push(newMsg);
     }.bind(this));
 
     //receiving user joined message
     this.socket.on('joined-message', function(joinedMsg) {
+      // this.messages.push(joinedMsg.italics());
       this.messages.push(joinedMsg.italics());
     }.bind(this));
 
     //receiving user left message
-    this.socket.on('left-message', function(joinedMsg) {
-      this.messages.push(joinedMsg.italics());
+    this.socket.on('user-left', function(leavingInfo) {
+      var index = this.currMembers.indexOf(leavingInfo);
+      this.currMembers.splice(index, 1);
+      var str = leavingInfo + ' has left room: ' + this.currentModStr;
+      this.messages.push(str.italics());
     }.bind(this));
 
     // receiving room info
@@ -91,78 +100,4 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.socket.emit('send', {room: this.currentModStr, message: this.newMsg});
     this.typedMessage = '';
   }
-
-
-  //
-  // @ViewChild('scrollMe') private myScrollContainer: ElementRef;
-  //
-  // chats: any;
-  // joinned: boolean = false;
-  // newUser = { nickname: '', room: '' };
-  // msgData = { room: '', nickname: '', message: '' };
-  // socket = io('http://localhost:4000');
-  // currentModStr = this.route.parent.snapshot.params['module'];
-  // constructor(private chatService: ChatService,
-  //             private route: ActivatedRoute) {}
-  //
-  // ngOnInit() {
-  //   // var user = JSON.parse(localStorage.getItem("user"));
-  //   // if(user!==null) {
-  //   //   this.getChatByRoom(user.room);
-  //   //   this.msgData = { room: user.room, nickname: user.nickname, message: '' }
-  //   //   this.joinned = true;
-  //   //   this.scrollToBottom();
-  //   // }
-  //   this.socket.on('new-message', function (data) {
-  //     if(data.message.room === JSON.parse(localStorage.getItem("user")).room) {
-  //       this.chats.push(data.message);
-  //       this.msgData = { room: user.room, nickname: user.nickname, message: '' }
-  //       this.scrollToBottom();
-  //     }
-  //   }.bind(this));
-  // }
-  //
-  // ngAfterViewChecked() {
-  //   this.scrollToBottom();
-  // }
-  //
-  // scrollToBottom(): void {
-  //   try {
-  //     this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-  //   } catch(err) { }
-  // }
-  //
-  // getChatByRoom(room) {
-  //   this.chatService.getChatByRoom(room).then((res) => {
-  //     this.chats = res;
-  //   }, (err) => {
-  //     console.log(err);
-  //   });
-  // }
-  //
-  // joinRoom() {
-  //   var date = new Date();
-  //   localStorage.setItem("user", JSON.stringify(this.newUser));
-  //   this.getChatByRoom(this.newUser.room);
-  //   this.msgData = { room: this.newUser.room, nickname: this.newUser.nickname, message: '' };
-  //   this.joinned = true;
-  //   this.socket.emit('save-message', { room: this.newUser.room, nickname: this.newUser.nickname, message: 'Join this room', updated_at: date });
-  // }
-  //
-  // sendMessage() {
-  //   this.chatService.saveChat(this.msgData).then((result) => {
-  //     this.socket.emit('save-message', result);
-  //   }, (err) => {
-  //     console.log(err);
-  //   });
-  // }
-  //
-  // logout() {
-  //   var date = new Date();
-  //   var user = JSON.parse(localStorage.getItem("user"));
-  //   this.socket.emit('save-message', { room: user.room, nickname: user.nickname, message: 'Left this room', updated_at: date });
-  //   localStorage.removeItem("user");
-  //   this.joinned = false;
-  // }
-
 }
