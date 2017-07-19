@@ -4,7 +4,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UsersService } from '../../Users.service';
 import { HttpService } from '../../http.service';
 
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -17,13 +16,6 @@ export class SidebarComponent implements OnInit {
               private userService: UsersService,
               private httpService: HttpService,
               private router: Router) {
-    // this.route.params
-    //   .subscribe(
-    //     (params: Params) => {
-    //       this.currentUser = this.userService.getUserByName(params['firstName']);
-    //     }
-    //   );
-    // this.currentUser = this.userService.getCurrentUser();
   }
 
   ngOnInit() {}
@@ -31,5 +23,10 @@ export class SidebarComponent implements OnInit {
     this.httpService.signOut();
     this.router.navigate(['/']);
     this.userService.signOut();  }
+
+  onToggle(event) {
+      event.clicked = true;
+      this.userService.onToggle(event);
+  }
 
 }

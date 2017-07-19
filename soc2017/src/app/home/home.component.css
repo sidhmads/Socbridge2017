@@ -6,4 +6,9 @@
   background-color: #C4DFE6;
   padding-bottom: 0;
   margin-bottom: 0;
+  overflow-y: scroll;
+}
+
+.stop {
+  overflow-x: hidden;
 }

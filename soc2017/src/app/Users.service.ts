@@ -1,6 +1,5 @@
 import { User } from './models/User.model';
 import { Module } from './models/Module.model';
-import { Course } from './models/Course.model';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import {DescriptionService} from './home/module/Description.service';
@@ -28,7 +27,7 @@ export class UsersService {
     var tempMod;
     for(var i=0; i<BEmodArr.length; i++){
       tempMod = BEmodArr[i];
-      this.FEmodArr.push(new Module(tempMod.module_code, []));
+      this.FEmodArr.push(new Module(tempMod.module_code, [], false));
       this.descriptionService.ModsTaken.push(tempMod['module_code']);
     }
     console.log(this.FEmodArr);
@@ -52,5 +51,12 @@ export class UsersService {
 
   getCurrentUser() {
     return this.user;
+  }
+  onToggle(mod: Module) {
+    for (const module of this.FEmodArr) {
+      if (mod !== module) {
+        module.clicked = false;
+      }
+    }
   }
 }
