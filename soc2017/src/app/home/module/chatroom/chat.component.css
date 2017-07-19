@@ -206,8 +206,10 @@
 
 }
 .chat_area {
+  display:flex;
+  flex-direction: column-reverse;
   float: left;
-  height: 571px;
+  height: 572px;
   overflow-x: hidden;
   overflow-y: auto;
   /*border: solid black;*/
