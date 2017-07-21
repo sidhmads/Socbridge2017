@@ -28,7 +28,7 @@
             type="text"
             class="form-control"
             placeholder="Title"
-            [(ngModel)] = "title">
+            [(ngModel)]="title">
         </div>
         <div class="col col-lg-offset-1 quillColor ">
           <quill-editor [(ngModel)]="editorContent"
@@ -43,16 +43,18 @@
               <button type="button"
                       class="btn btn-success"
                       (click)="clicked()"
-                      >
+              >
                 <span class="glyphicon glyphicon-ok"></span>
-                Submit</button>
+                Submit
+              </button>
               <!--delete button-->
               <button type="button"
                       class="btn btn-danger"
                       (click)="cancelNewPost()"
-                      >
+              >
                 <span class="glyphicon glyphicon-remove"></span>
-                Cancel</button>
+                Cancel
+              </button>
             </div>
           </div>
         </div>
@@ -63,7 +65,7 @@
 
 
   <!--main wall-->
-  <div  class="col col-lg-offset-1 paddingAwayFromModHeader">
+  <div class="col col-lg-offset-1 paddingAwayFromModHeader">
     <!--<div *ngIf="!newPost" class="col col-lg-offset-1">-->
     <div id="main">
       <div id="content">
@@ -76,7 +78,7 @@
               </h2>
               <span>Created by: {{x.user.firstName}} {{x.user.lastName}}</span>
             </header>
-            <p [innerHTML] = "x.content | safehtml"></p>
+            <p [innerHTML]="x.content | safehtml"></p>
             <div class="row">
               <div class="col">
                 <!--test-->
@@ -87,29 +89,32 @@
                           (click)="x.showPostEdit()"
                           *ngIf="x.ownerBool">
                     <span class="glyphicon glyphicon-wrench"></span>
-                    edit</button>
+                    edit
+                  </button>
                   <!--delete button-->
                   <button type="button"
                           class="btn btn-danger"
                           (click)="x.showDelete()"
                           *ngIf="x.ownerBool">
                     <span class="glyphicon glyphicon-trash"></span>
-                    delete</button>
+                    delete
+                  </button>
                   <!--new comment button-->
                   <button type="button"
                           class="btn btn-success"
                           (click)="x.showNewCommentEditor()">
                     <span class="glyphicon glyphicon-pencil"></span>
-                    New Comment</button>
+                    New Comment
+                  </button>
                   <!--show comment button-->
                   <button type="button"
                           class="btn btn-warning"
                           *ngIf="!x.showCommentsBool"
                           (click)="x.showAllComments()"
-                          [disabled] = "!x.comments.length >0">
+                          [disabled]="!x.comments.length >0">
                     <span class="glyphicon glyphicon-plus"></span>
                     Show comments
-                    <span class="badge" >{{x.comments.length}}</span></button>
+                    <span class="badge">{{x.comments.length}}</span></button>
                   <!--close comment button-->
                   <button type="button"
                           class="btn btn-warning"
@@ -117,11 +122,11 @@
                           (click)="x.showAllComments()">
                     <span class="glyphicon glyphicon-minus"></span>
                     Close comments
-                    <span class="badge" >{{x.comments.length}}</span></button>
+                    <span class="badge">{{x.comments.length}}</span></button>
                 </div>
               </div>
               <!--delete confirmation-->
-              <div *ngIf = "x.deletePostBool">
+              <div *ngIf="x.deletePostBool">
                 <br>
                 <br>
                 <div class="alert alert-danger">
@@ -131,8 +136,6 @@
                     <span class="glyphicon glyphicon-ok"></span></button>
                 </div>
               </div>
-
-
 
 
               <!--post editor-->
@@ -146,7 +149,7 @@
                       type="text"
                       class="form-control"
                       placeholder="Title"
-                      [(ngModel)] = "x.title">
+                      [(ngModel)]="x.title">
                   </div>
                 </div>
                 <div class="row">
@@ -180,7 +183,7 @@
                       <header>
                         <span>Comment by: {{comment.user.firstName}} {{comment.user.lastName}}</span>
                       </header>
-                      <p [innerHTML] = "comment.content | safehtml"></p>
+                      <p [innerHTML]="comment.content | safehtml"></p>
                     </article>
                     <hr>
                   </div>
@@ -200,14 +203,16 @@
                                 (click)="newComment(x)"
                         >
                           <span class="glyphicon glyphicon-ok"></span>
-                          Submit</button>
+                          Submit
+                        </button>
                         <!--cancel button-->
                         <button type="button"
                                 class="btn btn-danger"
                                 (click)="cancelNewComment(x)"
                         >
                           <span class="glyphicon glyphicon-remove"></span>
-                          Cancel</button>
+                          Cancel
+                        </button>
                       </div>
                     </div>
                   </div>

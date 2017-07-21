@@ -3,7 +3,6 @@
   background-color: #337ab7;
   border-color: #2e6da4;
   margin: 50px 0 0 0;
-
 }
 
 .quillColor {
@@ -17,8 +16,6 @@
   color: black;
   z-index:9999;
 }
-
-
 
 .paddingAwayFromModHeader {
   padding-top: 50px;
