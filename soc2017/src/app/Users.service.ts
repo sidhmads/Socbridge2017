@@ -11,6 +11,7 @@ export class UsersService {
   public socket: any =null;
   public user: User;
   public FEmodArr = [];
+  public courseOpen = false;
 
   createFeUserFromBeObj(BeUser: any){
     return (
@@ -63,7 +64,13 @@ export class UsersService {
       if (mod !== module) {
         module.clicked = false;
       }
+      this.courseOpen = false;
     }
-
+  }
+  courseToggle() {
+    this.courseOpen = true;
+    for (const module of this.FEmodArr) {
+      module.clicked = false;
+    }
   }
 }

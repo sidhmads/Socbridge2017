@@ -30,4 +30,8 @@ export class SidebarComponent implements OnInit {
       this.userService.onToggle(event);
   }
 
+  courseToggle() {
+    this.userService.courseToggle();
+  }
+
 }
