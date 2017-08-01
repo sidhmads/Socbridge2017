@@ -12,10 +12,10 @@ import { HttpService } from '../../http.service';
 export class SidebarComponent implements OnInit {
   currentUser: User;
 
-  constructor(private route: ActivatedRoute,
-              private userService: UsersService,
-              private httpService: HttpService,
-              private router: Router) {
+  constructor(public route: ActivatedRoute,
+              public userService: UsersService,
+              public httpService: HttpService,
+              public router: Router) {
   }
 
   ngOnInit() {}

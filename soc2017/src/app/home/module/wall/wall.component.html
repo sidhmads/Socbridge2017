@@ -111,7 +111,7 @@
                           class="btn btn-warning"
                           *ngIf="!x.showCommentsBool"
                           (click)="x.showAllComments()"
-                          [disabled]="!x.comments.length >0">
+                          [disabled]="!(x.comments.length > 0)">
                     <span class="glyphicon glyphicon-plus"></span>
                     Show comments
                     <span class="badge">{{x.comments.length}}</span></button>

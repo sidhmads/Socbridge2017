@@ -16,11 +16,11 @@ export class IVLEComponent implements OnInit {
   private module;
   private profile;
   private api_key = 'Nxm9ocEZtuEeyUn3ed4Ci';
-  private ivleRetrievedModules = [];
+  public ivleRetrievedModules = [];
   private lapiUrl = {
     url: ''
   };
-  private user;
+  public user;
 
   constructor(private http: Http,
               private route: ActivatedRoute,

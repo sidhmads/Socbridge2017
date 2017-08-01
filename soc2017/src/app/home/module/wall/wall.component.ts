@@ -26,10 +26,10 @@ export class WallComponent implements OnInit {
   currentModStr ='';
 
 
-  constructor(private userService: UsersService,
-              private route: ActivatedRoute,
-              private httpService: HttpService,
-              private wallService: WallService) {
+  constructor(public userService: UsersService,
+              public route: ActivatedRoute,
+              public httpService: HttpService,
+              public wallService: WallService) {
   }
 
   ngOnInit() {

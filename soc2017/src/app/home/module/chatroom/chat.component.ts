@@ -49,7 +49,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.currentModStr = route.parent.params['module'];
     this.currUser = this.userService.getCurrentUser();
     this.currMembers = [];
-    this.socket = io(this.localDomain);
+    this.socket = io(this.herokuDomain);
     this.userService.setSocket(this.socket);
 
     //receiving messages
